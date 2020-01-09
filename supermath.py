@@ -1,4 +1,5 @@
 ﻿#!flask/bin/python
+import os
 from flask import Flask, abort, request, jsonify, g, url_for
 
 app = Flask(__name__)
@@ -23,4 +24,6 @@ def user_login():
 
 # curl -i -X POST -H "Content-Type: application/json" -d "{"""user""":"""miguel""","""pswd""":"""python"""}" http://127.0.0.1:5000/api/login
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Bind to PORT if defined, otherwise default to 443
+    port = int(os.environ.get('PORT', 443))
+    app.run(host='0.0.0.0', port=port)
