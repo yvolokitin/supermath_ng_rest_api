@@ -1,1 +1,1 @@
-web: gunicorn supermathrest.wsgi --log-file -
+web: python supermath.py
