@@ -20,7 +20,7 @@ def user_login():
         abort(400) # missing arguments
 
     # fake behaviour and reply with HTTP OK, 200
-    return jsonify({ 'username': user }), 200, {'user_id': '13'}
+    return jsonify({'username': user, 'user_id': '13'}), 200
 
 # curl -i -X POST -H "Content-Type: application/json" -d "{"""user""":"""miguel""","""pswd""":"""python"""}" http://127.0.0.1:5000/api/login
 if __name__ == '__main__':
