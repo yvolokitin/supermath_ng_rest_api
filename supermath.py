@@ -4,7 +4,7 @@ from flask import Flask, abort, request, jsonify, g, url_for
 app = Flask(__name__)
 
 @app.route('/api/login', methods = ['POST'])
-def new_user():
+def user_login():
     user = request.json.get('user')
     pswd = request.json.get('pswd')
 
@@ -20,4 +20,3 @@ def new_user():
 # curl -i -X POST -H "Content-Type: application/json" -d "{"""user""":"""miguel""","""pswd""":"""python"""}" http://127.0.0.1:5000/api/login
 if __name__ == '__main__':
     app.run(debug=True)
-
