@@ -3,6 +3,10 @@ from flask import Flask, abort, request, jsonify, g, url_for
 
 app = Flask(__name__)
 
+@app.route('/')
+def hello():
+    return 'Hello YuraV'
+
 @app.route('/api/login', methods = ['POST'])
 def user_login():
     user = request.json.get('user')
