@@ -22,7 +22,24 @@ def user_login():
         abort(400) # missing arguments
 
     # fake behaviour and reply with HTTP OK, 200
-    return jsonify({'username': user, 'user_id': '13'}), 200
+    return jsonify({'id': 13, 'name': user, 'age': 6, 'pass': 767, 'fail': 13}), 200
+
+@app.route('/api/reg', methods = ['POST'])
+def user_registration():
+    user = request.json.get('user')
+    last = request.json.get('lastname')
+    mail = request.json.get('email')
+    pswd = request.json.get('pswd')
+    age = request.json.get('age')
+
+    print (user)
+    print (pswd)
+
+    if user is None or pswd is None:
+        abort(400) # missing arguments
+
+    # fake behaviour and reply with HTTP OK, 200
+    return jsonify({'id': 13, 'name': user, 'age': 6, 'pass': 0, 'fail': 0}), 200
 
 # curl -i -X POST -H "Content-Type: application/json" -d "{"""user""":"""miguel""","""pswd""":"""python"""}" http://127.0.0.1:5000/api/login
 if __name__ == '__main__':
