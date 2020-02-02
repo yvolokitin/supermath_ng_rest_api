@@ -1,0 +1,29 @@
+﻿Help links:
+# https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/
+
+Test commands:
+curl -i -X POST -H "Content-Type: application/json" -d "{"""user""":"""miguel""","""pswd""":"""python"""}" http://127.0.0.1:5000/api/login
+curl -i -X POST -H "Content-Type: application/json" -d "{"""user""":"""yura""","""pswd""":"""qwerty123"""}" http://supermath.xyz:3000/api/login
+curl -i -X POST -H "Content-Type: application/json" -d "{"""email""":"""volokitin@bk.ru""","""pswd""":"""python"""}" http://supermath.xyz:3000/api/login
+
+Python example calls:
+from datetime import datetime
+from sm_app.user import User
+
+user = User(NAME='Dasha', AGE='1983-04-05 16:13:13', EMAIL='vo_da@bk.ru', PSWD='asdas12', CREATION_DATE=datetime.now())
+from sm_app import sm_db
+sm_db.session.add(user)
+sm_db.session.commit()
+
+from sm_app.user import find_user_by_email
+u = find_user_by_email('volokitin@bk.ru')
+
+from sm_app.user import User
+user = User.query.filter_by(EMAIL='volokitin@bk.ru').first()
+
+curl -i -X POST -H "Content-Type: application/json" -d "{"""email""":"""volokitin@bk.ru""","""pswd""":"""python"""}" http://supermath.xyz:3000/api/login
+
+curl -i -X POST -H "Content-Type: application/json" -d "{"""id""":"""1""","""avatar""":"""test"""}" http://supermath.xyz:3000/api/login
+
+curl -i -X POST -H "Content-Type: application/json" -d "{"""user_id""":"""1""","""operation""":"""results""","""passed""":"""5""","""failed""":"""1"""}" http://supermath.xyz:3000/api/update
+
