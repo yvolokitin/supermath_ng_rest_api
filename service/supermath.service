@@ -1,0 +1,12 @@
+[Unit]
+Description=SuperMath Rest Backend API
+After=network.target
+
+[Service]
+WorkingDirectory=/var/www/supermath_ng_rest_api
+ExecStart=/usr/bin/python3 /var/www/supermath_ng_rest_api/supermath.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

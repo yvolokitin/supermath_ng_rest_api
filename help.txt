@@ -1,4 +1,20 @@
-﻿Help links:
+﻿1. copy supermath.service into /etc/systemd/system/
+2. sudo systemctl start supermath
+3. systemctl status supermath.service
+    ● supermath.service - SuperMath Rest Backend API
+       Loaded: loaded (/etc/systemd/system/supermath.service; disabled; vendor preset: enabled)
+       Active: active (running) since Mon 2020-02-03 18:33:03 UTC; 3s ago
+     Main PID: 11753 (python3)
+        Tasks: 1 (limit: 614)
+       CGroup: /system.slice/supermath.service
+               └─11753 /usr/bin/python3 /var/www/supermath_ng_rest_api/supermath.py
+
+4. Server logs are available:
+    journalctl -u supermath.service -f
+
+
+
+Help links:
 # https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/
 
 Test commands:
@@ -25,5 +41,5 @@ curl -i -X POST -H "Content-Type: application/json" -d "{"""email""":"""volokiti
 
 curl -i -X POST -H "Content-Type: application/json" -d "{"""id""":"""1""","""avatar""":"""test"""}" http://supermath.xyz:3000/api/login
 
-curl -i -X POST -H "Content-Type: application/json" -d "{"""user_id""":"""1""","""operation""":"""results""","""passed""":"""5""","""failed""":"""1"""}" http://supermath.xyz:3000/api/update
-
+curl -i -X POST -H "Content-Type: application/json" -d "{"""user_id""":"""1""","""operation""":"""results""","""passed""":"""2""","""failed""":"""0"""}" http://supermath.xyz:3000/api/update
+{"fail":3,"id":1,"pass":15}
