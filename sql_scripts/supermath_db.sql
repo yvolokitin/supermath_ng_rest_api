@@ -32,3 +32,19 @@ CREATE TABLE `users` (
 
 INSERT INTO users (`NAME`, `AGE`, `SURNAME`, `EMAIL`, `PSWD`, `PSWDHASH`, `CREATION_DATE`) VALUES ('Sergey', '2014-01-28 06:13:13', 'Volokitin', 'volokitin@bk.ru', 'asdas12', '123456', '2020-01-31 13:13:13');
 INSERT INTO users (`NAME`, `AGE`, `SURNAME`, `EMAIL`, `PSWD`, `PSWDHASH`, `CREATION_DATE`) VALUES ('Roman', '2009-07-07 18:13:13', 'Volokitin', 'yuri.volokitin@bk.ru', 'asdas12', '123456', '2020-01-31 13:13:13');
+
+DROP TABLE IF EXISTS `results`;
+CREATE TABLE `results` (
+    `ID` bigint(20) NOT NULL auto_increment,
+    `USERID` bigint(20) NOT NULL,
+    `EXECUTION_DATE` datetime NOT NULL,
+    `PASSED` int DEFAULT 0,
+    `FAILED` int DEFAULT 0,
+    `DURATION` varchar(64) COLLATE `utf8_general_ci` DEFAULT '',
+    `PERCENT` int DEFAULT 0,
+    `RATE` varchar(27),
+    `BELT` varchar(20) COLLATE `utf8_general_ci` DEFAULT '',
+    `TASK` varchar(20) COLLATE `utf8_general_ci` DEFAULT '',
+    PRIMARY KEY (`ID`),
+    FOREIGN KEY (USERID) REFERENCES `users` (`ID`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET `utf8` COLLATE=utf8_general_ci AUTO_INCREMENT=1;

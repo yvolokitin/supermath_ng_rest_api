@@ -12,7 +12,13 @@
 4. Server logs are available:
     journalctl -u supermath.service -f
 
+Restart:
+    service supermath stop
+    service supermath start
+    service supermath status
 
+
+mysql -uroot -pasdasd12 supermath_db;
 
 Help links:
 # https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/
