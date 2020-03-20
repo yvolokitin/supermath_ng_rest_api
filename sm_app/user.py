@@ -26,6 +26,7 @@ class User(sm_db.Model):
 
     ID = sm_db.Column('ID', sm_db.BigInteger(), nullable=False, unique=None, default=None, primary_key=True)
     NAME = sm_db.Column('NAME', sm_db.String(20), nullable=False, unique=None, default=None)
+    LANG = sm_db.Column('LANG', sm_db.String(20), nullable=False, unique=None, default=None)
     AGE = sm_db.Column('AGE', sm_db.DateTime(timezone=False), nullable=False, unique=None, default=None)
     SURNAME = sm_db.Column('SURNAME', sm_db.String(64), nullable=False, unique=None, default='')
     EMAIL = sm_db.Column('EMAIL', sm_db.String(255), nullable=False, unique=True, default=None)

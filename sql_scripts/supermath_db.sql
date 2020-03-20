@@ -30,6 +30,8 @@ CREATE TABLE `users` (
     UNIQUE KEY `EMAIL_IX` (`EMAIL`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET `utf8` COLLATE=utf8_general_ci AUTO_INCREMENT=1;
 
+ALTER TABLE users ADD `LANG` varchar(20) COLLATE `utf8_general_ci` DEFAULT 'en';
+
 INSERT INTO users (`NAME`, `AGE`, `SURNAME`, `EMAIL`, `PSWD`, `PSWDHASH`, `CREATION_DATE`) VALUES ('Sergey', '2014-01-28 06:13:13', 'Volokitin', 'volokitin@bk.ru', 'asdas12', '123456', '2020-01-31 13:13:13');
 INSERT INTO users (`NAME`, `AGE`, `SURNAME`, `EMAIL`, `PSWD`, `PSWDHASH`, `CREATION_DATE`) VALUES ('Roman', '2009-07-07 18:13:13', 'Volokitin', 'yuri.volokitin@bk.ru', 'asdas12', '123456', '2020-01-31 13:13:13');
 

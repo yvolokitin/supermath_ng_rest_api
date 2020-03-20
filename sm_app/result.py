@@ -20,7 +20,7 @@ class Result(sm_db.Model):
     __tablename__ = 'results'
     __table_args__ = {'useexisting': True}
 
-    ID = sm_db.Column('ID', sm_db.BigInteger(), nullable=False, unique=None, default=None, primary_key=True)
+    ID = sm_db.Column('ID', sm_db.BigInteger(), nullable=False, unique=None, default=None, primary_key=True, autoincrement=True)
     USERID = sm_db.Column('USERID', sm_db.BigInteger(), nullable=False, unique=None, default=None, primary_key=True)
     EXECUTION_DATE = sm_db.Column('EXECUTION_DATE', sm_db.DateTime(timezone=False), nullable=False, unique=None, default=None)
     PASSED = sm_db.Column('PASSED', sm_db.Integer, nullable=False, unique=None, default=0)

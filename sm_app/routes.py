@@ -15,6 +15,7 @@ def get_user_info(user, email):
     else:
         result = jsonify({'id': user.ID,
                           'name': user.NAME,
+                          'lang': user.LANG,
                           'age': user.AGE,
                           'surname': user.SURNAME,
                           'email': user.EMAIL,
@@ -126,11 +127,21 @@ def update_user():
                         sm_db.session.commit()
                         result = jsonify({'id': user.ID, 'ava': user.AVATAR})
 
+                elif operation == 'lang':
+                    lang = request.json.get('lang')
+                    if lang is None:
+                        result = jsonify({'error': 'Received no language code: ' + str(image)})
+                    else:
+                        user.LANG = lang
+                        sm_db.session.commit()
+                        result = jsonify({'id': user.ID, 'ava': user.LANG})
+
     return (result, 200)
 
 @sm_app.route('/api/reg', methods = ['POST'])
 def registration():
     name = request.json.get('name')
+    lang = request.json.get('lang')
     age = request.json.get('age')
     last = request.json.get('lastname')
     email = request.json.get('email')
@@ -140,6 +151,8 @@ def registration():
 
     if name is None:
         result = jsonify({'error': 'Missing arguments, no user name'})
+    elif lang is None:
+        result = jsonify({'error': 'Missing arguments, no language'})
     elif age is None:
         result = jsonify({'error': 'Missing arguments, no birth date'})
     elif email is None:
@@ -159,7 +172,7 @@ def registration():
             except Exception as err:
                 result = jsonify({'error': 'User birthdate does not match expected format YYYY-MM-DD: ' + str(age)})
             else:
-                user = User(NAME=name, AGE=birth, SURNAME=last, EMAIL=email, PSWD=pswd, PSWDHASH=pswdhash, CREATION_DATE=datetime.now())
+                user = User(NAME=name, LANG=lang, AGE=birth, SURNAME=last, EMAIL=email, PSWD=pswd, PSWDHASH=pswdhash, CREATION_DATE=datetime.now())
                 sm_db.session.add(user)
                 sm_db.session.commit()
                 # sleep 1 second for DB operation
