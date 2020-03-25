@@ -57,14 +57,18 @@ def login():
 def update_user():
     user_id = request.json.get('user_id')
     operation = request.json.get('operation')
+    pswdhash = request.json.get('pswdhash')
 
     if user_id is None or operation is None:
         result = jsonify({'error': 'Missing arguments, no user id \'' + str(user_id)
                         + '\' or no operation \'' + str(operation) + '\' received'})
+    elif pswdhash is None:
+        result = jsonify({'error': 'No authrization method provided'})
+
     else:
         user = None
         try:
-            user = User.query.filter_by(ID=user_id).first()
+            user = User.query.filter_by(ID=user_id, PSWDHASH=pswdhash).first()
         except Exception as e:
             print(traceback.format_exc())
             result = jsonify({'error': 'Exception raised during sql query ' + str(e)})
@@ -109,8 +113,7 @@ def update_user():
 
                 elif operation == 'password':
                     pswd = request.json.get('pswd')
-                    pswdhash = request.json.get('pswdhash')
-                    if pswd is None or pswdhash is None:
+                    if pswd is None:
                         result = jsonify({'error': 'Wrong or No new password and hash received'})
                     else:
                         user.PSWD = pswd
@@ -161,6 +164,8 @@ def registration():
         result = jsonify({'error': 'Missing arguments, no password'})
     elif subcsr is None:
         result = jsonify({'error': 'Missing arguments, no subscription'})
+    elif pswdhash is None:
+        result = jsonify({'error': 'Missing arguments, no password hash'})
     else:
         # search by email for existed user
         user = User.query.filter_by(EMAIL=email).first()
