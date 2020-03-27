@@ -22,7 +22,7 @@ def get_user_info(user, email):
                           'creation': user.CREATION_DATE,
                           'pass': user.PASS,
                           'fail': user.FAIL,
-                          'ava': user.AVATAR})
+                          'avatar': user.AVATAR})
     return result
 
 @sm_app.route('/')
@@ -59,12 +59,12 @@ def update_user():
     operation = request.json.get('operation')
     pswdhash = request.json.get('pswdhash')
 
-    if user_id is None or operation is None:
-        result = jsonify({'error': 'Missing arguments, no user id \'' + str(user_id)
-                        + '\' or no operation \'' + str(operation) + '\' received'})
+    if user_id is None:
+        result = jsonify({'error': 'Missing arguments, no user id received'})
+    elif operation is None:
+        result = jsonify({'error': 'Missing arguments, no operation received'})
     elif pswdhash is None:
-        result = jsonify({'error': 'No authrization method provided'})
-
+        result = jsonify({'error': 'No authorization method provided'})
     else:
         user = None
         try:
@@ -109,12 +109,35 @@ def update_user():
                     last = request.json.get('lastname')
                     email = request.json.get('email')
                     subcsr = request.json.get('subcsr')
-                    result = jsonify({'error': 'Sorry, profile operation is not implemented yet'})
+
+                    if name is None:
+                        result = jsonify({'error': 'Missing arguments, no user name'})
+                    elif age is None:
+                        result = jsonify({'error': 'Missing arguments, no birth date'})
+                    elif last is None:
+                        result = jsonify({'error': 'Missing arguments, no Surname/Lastname'})
+                    elif email is None:
+                        result = jsonify({'error': 'Missing arguments, no email address'})
+                    elif subcsr is None:
+                        result = jsonify({'error': 'Missing arguments, no subscription'})
+                    else:
+                        try:
+                            birth = datetime.strptime(age,'%Y-%m-%d')
+                        except Exception as err:
+                            result = jsonify({'error': 'User birthdate does not match expected format YYYY-MM-DD: ' + str(age)})
+                        else:
+                            # result = jsonify({'error': 'Sorry, profile operation is not implemented yet'})
+                            user.NAME = name
+                            user.AGE = birth
+                            user.SURNAME = last
+                            user.EMAIL = email
+                            sm_db.session.commit()
+                            result = jsonify({'id': user.ID})
 
                 elif operation == 'password':
                     pswd = request.json.get('pswd')
                     if pswd is None:
-                        result = jsonify({'error': 'Wrong or No new password and hash received'})
+                        result = jsonify({'error': 'No NEW password received'})
                     else:
                         user.PSWD = pswd
                         user.PSWDHASH = pswdhash
@@ -122,13 +145,13 @@ def update_user():
                         result = jsonify({'id': user.ID})
 
                 elif operation == 'avatar':
-                    image = request.json.get('image')
-                    if image is None:
-                        result = jsonify({'error': 'Received wrong or no image for avatar: ' + str(image)})
+                    image = request.json.get('avatar')
+                    if avatar is None:
+                        result = jsonify({'error': 'Received wrong or no image for avatar: ' + str(avatar)})
                     else:
-                        user.AVATAR = image
+                        user.AVATAR = avatar
                         sm_db.session.commit()
-                        result = jsonify({'id': user.ID, 'ava': user.AVATAR})
+                        result = jsonify({'id': user.ID, 'avatar': user.AVATAR})
 
                 elif operation == 'lang':
                     lang = request.json.get('lang')
@@ -137,7 +160,7 @@ def update_user():
                     else:
                         user.LANG = lang
                         sm_db.session.commit()
-                        result = jsonify({'id': user.ID, 'ava': user.LANG})
+                        result = jsonify({'id': user.ID, 'lang': user.LANG})
 
     return (result, 200)
 
