@@ -145,9 +145,9 @@ def update_user():
                         result = jsonify({'id': user.ID})
 
                 elif operation == 'avatar':
-                    image = request.json.get('avatar')
+                    avatar = request.json.get('avatar')
                     if avatar is None:
-                        result = jsonify({'error': 'Received wrong or no image for avatar: ' + str(avatar)})
+                        result = jsonify({'error': 'Received no avatar'})
                     else:
                         user.AVATAR = avatar
                         sm_db.session.commit()
@@ -156,7 +156,7 @@ def update_user():
                 elif operation == 'lang':
                     lang = request.json.get('lang')
                     if lang is None:
-                        result = jsonify({'error': 'Received no language code: ' + str(image)})
+                        result = jsonify({'error': 'Received no language code received'})
                     else:
                         user.LANG = lang
                         sm_db.session.commit()
