@@ -20,6 +20,10 @@ Restart:
 
 mysql -uroot -pasdasd12 supermath_db;
 
+/var/www/supermath/supermath_ng_react/
+git pull origin
+npm run build
+
 Help links:
 # https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/
 

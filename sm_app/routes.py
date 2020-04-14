@@ -2,32 +2,56 @@
 import traceback
 from datetime import datetime
 
-from flask import request, jsonify
+from flask import request, jsonify, abort
 
 from sm_app import sm_app, sm_db
 from sm_app.user import User
 from sm_app.result import Result
 
-def get_user_info(user, email):
+def get_user_info(user, refresh=False):
     if user is None:
         result = jsonify({'error': 'User with Email address ' + str(email)
                         + ' does not exist OR password does not match registration records.'})
     else:
-        result = jsonify({'id': user.ID,
-                          'name': user.NAME,
-                          'lang': user.LANG,
-                          'age': user.AGE,
-                          'surname': user.SURNAME,
-                          'email': user.EMAIL,
-                          'creation': user.CREATION_DATE,
-                          'pass': user.PASS,
-                          'fail': user.FAIL,
-                          'ava': user.AVATAR})
+        if refresh is False:
+            result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
+                              'age': user.AGE, 'surname': user.SURNAME, 'email': user.EMAIL,
+                              'creation': user.CREATION_DATE, 'avatar': user.AVATAR,
+                              'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT})
+        else:
+            result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
+                              'age': user.AGE, 'surname': user.SURNAME, 'email': user.EMAIL,
+                              'creation': user.CREATION_DATE, 'avatar': user.AVATAR,
+                              'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT,
+                              'refresh': True})
     return result
 
 @sm_app.route('/')
 def hello():
     return 'Hello User'
+
+@sm_app.route('/api/refresh', methods = ['POST'])
+def refresh():
+    user_id = request.json.get('user_id')
+    pswdhash = request.json.get('pswdhash')
+    if user_id is None:
+        result = jsonify({'error': 'Refresh Call: missing arguments, no user id received'})
+    elif pswdhash is None:
+        result = jsonify({'error': 'Refresh Call: no authorization method provided'})
+    else:
+        user = None
+        try:
+            user = User.query.filter_by(ID=user_id, PSWDHASH=pswdhash).first()
+        except Exception as e:
+            print(traceback.format_exc())
+            result = jsonify({'error': 'Refresh Call: exception raised during sql query ' + str(e)})
+        else:
+            if user is None:
+                result = jsonify({'error': 'Refresh Call: no registered user with user ID: ' + str(user_id)})
+            else:
+                result = get_user_info(user, True)
+
+    return (result, 200)
 
 @sm_app.route('/api/login', methods = ['POST'])
 def login():
@@ -49,7 +73,44 @@ def login():
             elif user.PSWD != pswd:
                 result = jsonify({'error': 'Incorrect password used \'' + str(pswd) + '\' for login'})
             else:
-                result = get_user_info(user, email)
+                result = get_user_info(user)
+
+    return (result, 200)
+
+@sm_app.route('/api/counter', methods = ['POST'])
+def update_counter():
+    user_id = request.json.get('user_id')
+    pswdhash = request.json.get('pswdhash')
+    passed = request.json.get('passed')
+    failed = request.json.get('failed')
+    belt = request.json.get('belt')
+
+    if user_id is None:
+        result = jsonify({'error': 'Counter Call: missing arguments, no user id received'})
+    elif pswdhash is None:
+        result = jsonify({'error': 'Counter Call: no authorization method provided'})
+    elif passed is None or failed is None or belt is None:
+        result = jsonify({'error': 'Counter Call: missing arguments, no user info and results'})
+    else:
+        user = None
+        try:
+            user = User.query.filter_by(ID=user_id, PSWDHASH=pswdhash).first()
+        except Exception as e:
+            print(traceback.format_exc())
+            result = jsonify({'error': 'Counter Call: exception raised during sql query ' + str(e)})
+        else:
+            if user is None:
+                result = jsonify({'error': 'Counter Call: no registered user with user ID: ' + str(user_id)})
+            else:
+                pass_dec = int(passed, 2)
+                fail_dec = int(failed, 2)
+                pass_value =  int(pass_dec / user_id)
+                fail_value =  int(fail_dec / user_id)
+                user.PASS = pass_value
+                user.FAIL = fail_value
+                user.BELT = belt
+                sm_db.session.commit()
+                result = jsonify({'id': user.ID, 'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT})
 
     return (result, 200)
 
@@ -57,14 +118,18 @@ def login():
 def update_user():
     user_id = request.json.get('user_id')
     operation = request.json.get('operation')
+    pswdhash = request.json.get('pswdhash')
 
-    if user_id is None or operation is None:
-        result = jsonify({'error': 'Missing arguments, no user id \'' + str(user_id)
-                        + '\' or no operation \'' + str(operation) + '\' received'})
+    if user_id is None:
+        result = jsonify({'error': 'Missing arguments, no user id received'})
+    elif operation is None:
+        result = jsonify({'error': 'Missing arguments, no operation received'})
+    elif pswdhash is None:
+        result = jsonify({'error': 'No authorization method provided'})
     else:
         user = None
         try:
-            user = User.query.filter_by(ID=user_id).first()
+            user = User.query.filter_by(ID=user_id, PSWDHASH=pswdhash).first()
         except Exception as e:
             print(traceback.format_exc())
             result = jsonify({'error': 'Exception raised during sql query ' + str(e)})
@@ -99,42 +164,65 @@ def update_user():
 
                         result = jsonify({'id': user.ID, 'pass': user.PASS, 'fail': user.FAIL})
 
-                elif operation == 'profile':
+                elif operation == 'name':
                     name = request.json.get('name')
-                    age = request.json.get('age')
-                    last = request.json.get('lastname')
+                    if name is None:
+                        result = jsonify({'error': 'Missing arguments, no user name'})
+                    else:
+                        user.NAME = name
+                        sm_db.session.commit()
+                        result = jsonify({'id': user.ID})
+
+                elif operation == 'surname':
+                    surname = request.json.get('surname')
+                    if surname is None:
+                        result = jsonify({'error': 'Missing arguments, no surname'})
+                    else:
+                        user.SURNAME = surname
+                        sm_db.session.commit()
+                        result = jsonify({'id': user.ID})
+
+                elif operation == 'email':
                     email = request.json.get('email')
-                    subcsr = request.json.get('subcsr')
-                    result = jsonify({'error': 'Sorry, profile operation is not implemented yet'})
+                    if email is None:
+                        result = jsonify({'error': 'Missing arguments, no email'})
+                    else:
+                        user.EMAIL = email
+                        sm_db.session.commit()
+                        result = jsonify({'id': user.ID})
 
                 elif operation == 'password':
                     pswd = request.json.get('pswd')
-                    pswdhash = request.json.get('pswdhash')
-                    if pswd is None or pswdhash is None:
-                        result = jsonify({'error': 'Wrong or No new password and hash received'})
+                    newhash = request.json.get('newhash')
+                    if pswd is None:
+                        result = jsonify({'error': 'No NEW password received'})
+                    elif newhash is None:
+                        result = jsonify({'error': 'No NEW password Hash received'})
                     else:
                         user.PSWD = pswd
-                        user.PSWDHASH = pswdhash
+                        user.PSWDHASH = newhash
                         sm_db.session.commit()
                         result = jsonify({'id': user.ID})
 
                 elif operation == 'avatar':
-                    image = request.json.get('image')
-                    if image is None:
-                        result = jsonify({'error': 'Received wrong or no image for avatar: ' + str(image)})
+                    avatar = request.json.get('avatar')
+                    if avatar is None:
+                        result = jsonify({'error': 'Received no avatar'})
                     else:
-                        user.AVATAR = image
+                        user.AVATAR = avatar
                         sm_db.session.commit()
-                        result = jsonify({'id': user.ID, 'ava': user.AVATAR})
+                        result = jsonify({'id': user.ID, 'avatar': user.AVATAR})
 
                 elif operation == 'lang':
                     lang = request.json.get('lang')
                     if lang is None:
-                        result = jsonify({'error': 'Received no language code: ' + str(image)})
+                        result = jsonify({'error': 'Received no language code received'})
                     else:
                         user.LANG = lang
                         sm_db.session.commit()
-                        result = jsonify({'id': user.ID, 'ava': user.LANG})
+                        result = jsonify({'id': user.ID, 'lang': user.LANG})
+                else:
+                    result = jsonify({'error': 'Unknown operatino received \'' + operation + '\''})
 
     return (result, 200)
 
@@ -161,6 +249,8 @@ def registration():
         result = jsonify({'error': 'Missing arguments, no password'})
     elif subcsr is None:
         result = jsonify({'error': 'Missing arguments, no subscription'})
+    elif pswdhash is None:
+        result = jsonify({'error': 'Missing arguments, no password hash'})
     else:
         # search by email for existed user
         user = User.query.filter_by(EMAIL=email).first()
@@ -178,6 +268,6 @@ def registration():
                 # sleep 1 second for DB operation
                 time.sleep(1)
                 user = User.query.filter_by(EMAIL=email).first()
-                result = get_user_info(user, email)
+                result = get_user_info(user)
 
     return (result, 200)
