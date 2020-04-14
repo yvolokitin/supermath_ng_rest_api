@@ -13,17 +13,17 @@ def get_user_info(user, refresh=False):
         result = jsonify({'error': 'User with Email address ' + str(email)
                         + ' does not exist OR password does not match registration records.'})
     else:
-        result = jsonify({'id': user.ID,
-                          'name': user.NAME,
-                          'lang': user.LANG,
-                          'age': user.AGE,
-                          'surname': user.SURNAME,
-                          'email': user.EMAIL,
-                          'creation': user.CREATION_DATE,
-                          'pass': user.PASS,
-                          'fail': user.FAIL,
-                          'belt': user.BELT,
-                          'avatar': user.AVATAR})
+        if refresh is False:
+            result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
+                              'age': user.AGE, 'surname': user.SURNAME, 'email': user.EMAIL,
+                              'creation': user.CREATION_DATE, 'avatar': user.AVATAR,
+                              'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT})
+        else:
+            result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
+                              'age': user.AGE, 'surname': user.SURNAME, 'email': user.EMAIL,
+                              'creation': user.CREATION_DATE, 'avatar': user.AVATAR,
+                              'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT,
+                              'refresh': True})
     return result
 
 @sm_app.route('/')
@@ -32,7 +32,25 @@ def hello():
 
 @sm_app.route('/api/refresh', methods = ['POST'])
 def refresh():
-    result = jsonify({'error': 'Unimplementer'})
+    user_id = request.json.get('user_id')
+    pswdhash = request.json.get('pswdhash')
+    if user_id is None:
+        result = jsonify({'error': 'Refresh Call: missing arguments, no user id received'})
+    elif pswdhash is None:
+        result = jsonify({'error': 'Refresh Call: no authorization method provided'})
+    else:
+        user = None
+        try:
+            user = User.query.filter_by(ID=user_id, PSWDHASH=pswdhash).first()
+        except Exception as e:
+            print(traceback.format_exc())
+            result = jsonify({'error': 'Refresh Call: exception raised during sql query ' + str(e)})
+        else:
+            if user is None:
+                result = jsonify({'error': 'Refresh Call: no registered user with user ID: ' + str(user_id)})
+            else:
+                result = get_user_info(user, True)
+
     return (result, 200)
 
 @sm_app.route('/api/login', methods = ['POST'])
@@ -56,43 +74,6 @@ def login():
                 result = jsonify({'error': 'Incorrect password used \'' + str(pswd) + '\' for login'})
             else:
                 result = get_user_info(user)
-
-    return (result, 200)
-
-@sm_app.route('/api/counter', methods = ['POST'])
-def update_counter():
-    user_id = request.json.get('user_id')
-    pswdhash = request.json.get('pswdhash')
-    passed = request.json.get('passed')
-    failed = request.json.get('failed')
-    belt = request.json.get('belt')
-
-    if user_id is None:
-        result = jsonify({'error': 'Counter Call: missing arguments, no user id received'})
-    elif pswdhash is None:
-        result = jsonify({'error': 'Counter Call: no authorization method provided'})
-    elif passed is None or failed is None or belt is None:
-        result = jsonify({'error': 'Counter Call: missing arguments, no user info and results'})
-    else:
-        user = None
-        try:
-            user = User.query.filter_by(ID=user_id, PSWDHASH=pswdhash).first()
-        except Exception as e:
-            print(traceback.format_exc())
-            result = jsonify({'error': 'Counter Call: exception raised during sql query ' + str(e)})
-        else:
-            if user is None:
-                result = jsonify({'error': 'Counter Call: no registered user with user ID: ' + str(user_id)})
-            else:
-                pass_dec = int(passed, 2)
-                fail_dec = int(failed, 2)
-                pass_value =  int(pass_dec / user_id)
-                fail_value =  int(fail_dec / user_id)
-                user.PASS = pass_value
-                user.FAIL = fail_value
-                user.BELT = belt
-                sm_db.session.commit()
-                result = jsonify({'id': user.ID, 'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT})
 
     return (result, 200)
 
