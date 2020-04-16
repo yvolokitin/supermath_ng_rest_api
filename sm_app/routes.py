@@ -2,60 +2,102 @@
 import traceback
 from datetime import datetime
 
-from flask import request, jsonify, abort
+from flask import request, jsonify
 
 from sm_app import sm_app, sm_db
 from sm_app.user import User
 from sm_app.result import Result
+from sm_app.emailer import send_forget_email
 
-def get_user_info(user, email):
+def get_user_info(user, refresh=False):
     if user is None:
         result = jsonify({'error': 'User with Email address ' + str(email)
                         + ' does not exist OR password does not match registration records.'})
     else:
-        result = jsonify({'id': user.ID,
-                          'name': user.NAME,
-                          'lang': user.LANG,
-                          'age': user.AGE,
-                          'surname': user.SURNAME,
-                          'email': user.EMAIL,
-                          'creation': user.CREATION_DATE,
-                          'pass': user.PASS,
-                          'fail': user.FAIL,
-                          'belt': user.BELT,
-                          'avatar': user.AVATAR})
+        if refresh is False:
+            result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
+                              'age': user.AGE, 'surname': user.SURNAME, 'email': user.EMAIL,
+                              'creation': user.CREATION_DATE, 'avatar': user.AVATAR,
+                              'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT})
+        else:
+            result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
+                              'age': user.AGE, 'surname': user.SURNAME, 'email': user.EMAIL,
+                              'creation': user.CREATION_DATE, 'avatar': user.AVATAR,
+                              'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT,
+                              'refresh': True})
     return result
 
 @sm_app.route('/')
 def hello():
-    return 'Hello User'
+    # send_forget_email(name, surname, password, lang, recipient)
+    # send_forget_email('Sergei', 'Voloktin', 'psswds', 'ru', 'yuri.volokitin@gmail.com')
+    return 'Hello User, Email Sent'
 
-@sm_app.route('/api/refresh', methods = ['POST'])
-def refresh():
-    result = jsonify({'error': 'Unimplementer'})
-    return (result, 200)
-
-@sm_app.route('/api/login', methods = ['POST'])
-def login():
+@sm_app.route('/api/forget', methods = ['POST'])
+def forget():
     email = request.json.get('email')
-    pswd = request.json.get('pswd')
-
-    if email is None or pswd is None:
-        result = jsonify({'error': 'Missing arguments, no email or password provided'})
+    if email is None:
+        result = jsonify({'error': 'Forget Call: missing arguments, no email received'})
     else:
         user = None
         try:
             user = User.query.filter_by(EMAIL=email).first()
         except Exception as e:
             print(traceback.format_exc())
-            result = jsonify({'error': e})
+            result = jsonify({'error': 'Forget Call: exception raised ' + e})
         else:
             if user is None:
-                result = jsonify({'error': 'No user found with \'' + str(email) + '\' email address'})
-            elif user.PSWD != pswd:
-                result = jsonify({'error': 'Incorrect password used \'' + str(pswd) + '\' for login'})
+                result = jsonify({'error': 'Forget Call: No user found with \'' + str(email) + '\' email address'})
             else:
-                result = get_user_info(user, email)
+                send_forget_email(user.NAME, user.SURNAME, user.PSWD, user.LANG, email)
+                result = jsonify({'email': email})
+
+    return (result, 200)
+
+@sm_app.route('/api/refresh', methods = ['POST'])
+def refresh():
+    user_id = request.json.get('user_id')
+    pswdhash = request.json.get('pswdhash')
+    if user_id is None:
+        result = jsonify({'error': 'Refresh Call: missing arguments, no user id received'})
+    elif pswdhash is None:
+        result = jsonify({'error': 'Refresh Call: no authorization method provided'})
+    else:
+        user = None
+        try:
+            user = User.query.filter_by(ID=user_id, PSWDHASH=pswdhash).first()
+        except Exception as e:
+            print(traceback.format_exc())
+            result = jsonify({'error': 'Refresh Call: exception raised during sql query ' + str(e)})
+        else:
+            if user is None:
+                result = jsonify({'error': 'Refresh Call: no registered user with user ID: ' + str(user_id)})
+            else:
+                result = get_user_info(user, True)
+
+    return (result, 200)
+
+@sm_app.route('/api/login', methods = ['POST'])
+def login():
+    email = request.json.get('email')
+    pswdhash = request.json.get('pswdhash')
+
+    if email is None or pswdhash is None:
+        result = jsonify({'error': 'Login Call: missing arguments, no email or password provided'})
+    else:
+        user = None
+        try:
+            user = User.query.filter_by(EMAIL=email, PSWDHASH=pswdhash).first()
+        except Exception as e:
+            print(traceback.format_exc())
+            result = jsonify({'error': 'Login Call: exception raised' + e})
+        else:
+            if user is None:
+                result = jsonify({'error': 'Login Call: no user found with \'' + str(email) + '\' email address'})
+            elif user.PSWDHASH != pswdhash:
+                result = jsonify({'error': 'Login Call: incorrect password used \'' + str(email) + '\' account'})
+            else:
+                result = get_user_info(user)
 
     return (result, 200)
 
@@ -237,7 +279,7 @@ def registration():
         # search by email for existed user
         user = User.query.filter_by(EMAIL=email).first()
         if user is not None:
-            result = jsonify({'error': 'User with such email address \'' + str(email) + '\' has already registered. Please, use another email address if you want to create a new account.'})
+            result = jsonify({'error': 'User with such email address \'' + str(email) + '\' has already registered/existed. Please, use another email address if you want to create a new account.'})
         else:
             try:
                 birth = datetime.strptime(age,'%Y-%m-%d')
@@ -250,6 +292,6 @@ def registration():
                 # sleep 1 second for DB operation
                 time.sleep(1)
                 user = User.query.filter_by(EMAIL=email).first()
-                result = get_user_info(user, email)
+                result = get_user_info(user)
 
     return (result, 200)

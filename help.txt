@@ -17,6 +17,7 @@ Restart:
     service supermath start
     service supermath status
 
+fivdrrlgzntzqtiz
 
 mysql -uroot -pasdasd12 supermath_db;
 
