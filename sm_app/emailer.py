@@ -23,8 +23,8 @@ def send_forget_email(name, surname, password, lang, recipient):
         msg.html += '<p>Мы очень сожалеем, что у вас возникли проблемы со входов в нашу систему.'
         msg.html += 'Пожалуйста, используйте информацию, которую вы запросили :-)</p> <p>' + password + '</p></div></body></html>'
     else:
-        msg.html += '<p>We are sorry that you are having a problem with login.'
-        msg.html += 'Please look in the below information, this is probably exactly what you need :-)</p> <p>' + password + '</p></div></body></html>'
+        msg.html += '<p>We are sorry that you are having a problem with login. Please look in the below information, '
+        msg.html += 'this is probably exactly what you need :-)</p> <p>' + password + '</p></div></body></html>'
 
     mail.send(msg)
 

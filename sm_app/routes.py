@@ -3,6 +3,7 @@ import traceback
 from datetime import datetime
 
 from flask import request, jsonify
+from flask import render_template
 
 from sm_app import sm_app, sm_db
 from sm_app.user import User
@@ -10,21 +11,17 @@ from sm_app.result import Result
 from sm_app.emailer import send_forget_email
 
 def get_user_info(user, refresh=False):
-    if user is None:
-        result = jsonify({'error': 'User with Email address ' + str(email)
-                        + ' does not exist OR password does not match registration records.'})
+    if refresh is False:
+        result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
+                          'age': user.AGE, 'surname': user.SURNAME, 'email': user.EMAIL,
+                          'creation': user.CREATION_DATE, 'avatar': user.AVATAR,
+                          'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT})
     else:
-        if refresh is False:
-            result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
-                              'age': user.AGE, 'surname': user.SURNAME, 'email': user.EMAIL,
-                              'creation': user.CREATION_DATE, 'avatar': user.AVATAR,
-                              'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT})
-        else:
-            result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
-                              'age': user.AGE, 'surname': user.SURNAME, 'email': user.EMAIL,
-                              'creation': user.CREATION_DATE, 'avatar': user.AVATAR,
-                              'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT,
-                              'refresh': True})
+        result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
+                          'age': user.AGE, 'surname': user.SURNAME, 'email': user.EMAIL,
+                          'creation': user.CREATION_DATE, 'avatar': user.AVATAR,
+                          'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT,
+                          'refresh': True})
     return result
 
 @sm_app.route('/')
@@ -32,6 +29,10 @@ def hello():
     # send_forget_email(name, surname, password, lang, recipient)
     # send_forget_email('Sergei', 'Voloktin', 'psswds', 'ru', 'yuri.volokitin@gmail.com')
     return 'Hello User, Email Sent'
+
+@sm_app.route('/register')
+def registration_html():
+    return render_template('index.html')
 
 @sm_app.route('/api/forget', methods = ['POST'])
 def forget():
@@ -94,10 +95,11 @@ def login():
         else:
             if user is None:
                 result = jsonify({'error': 'Login Call: no user found with \'' + str(email) + '\' email address'})
-            elif user.PSWDHASH != pswdhash:
-                result = jsonify({'error': 'Login Call: incorrect password used \'' + str(email) + '\' account'})
             else:
-                result = get_user_info(user)
+                if user.PSWDHASH != pswdhash:
+                    result = jsonify({'error': 'Login Call: incorrect password used \'' + str(email) + '\' account'})
+                else:
+                    result = get_user_info(user)
 
     return (result, 200)
 
