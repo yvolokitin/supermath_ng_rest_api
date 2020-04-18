@@ -24,4 +24,4 @@ CORS(sm_app)
 sm_app.config.from_object(Config)
 sm_db = SQLAlchemy(sm_app)
 
-from sm_app import routes, user, result, emailer
+from sm_app import routes, user, result, userinfo, emailer

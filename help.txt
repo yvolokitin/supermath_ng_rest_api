@@ -31,7 +31,12 @@ Help links:
 Test commands:
 curl -i -X POST -H "Content-Type: application/json" -d "{"""user""":"""miguel""","""pswd""":"""python"""}" http://127.0.0.1:5000/api/login
 curl -i -X POST -H "Content-Type: application/json" -d "{"""user""":"""yura""","""pswd""":"""qwerty123"""}" http://supermath.xyz:3000/api/login
+
 curl -i -X POST -H "Content-Type: application/json" -d "{"""email""":"""volokitin@bk.ru""","""pswd""":"""python"""}" http://supermath.xyz:3000/api/login
+
+
+curl -i -X POST -H "Content-Type: application/json" -d "{"""email""":"""yurivolokitin@bk.ru""","""pswd""":"""python"""}" http://supermath.xyz:3000/api/registration
+
 
 Python example calls:
 from datetime import datetime

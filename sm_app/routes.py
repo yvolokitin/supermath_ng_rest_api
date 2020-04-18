@@ -9,30 +9,32 @@ from sm_app import sm_app, sm_db
 from sm_app.user import User
 from sm_app.result import Result
 from sm_app.emailer import send_forget_email
-
-def get_user_info(user, refresh=False):
-    if refresh is False:
-        result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
-                          'age': user.AGE, 'surname': user.SURNAME, 'email': user.EMAIL,
-                          'creation': user.CREATION_DATE, 'avatar': user.AVATAR,
-                          'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT})
-    else:
-        result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
-                          'age': user.AGE, 'surname': user.SURNAME, 'email': user.EMAIL,
-                          'creation': user.CREATION_DATE, 'avatar': user.AVATAR,
-                          'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT,
-                          'refresh': True})
-    return result
+from sm_app.emailer import send_registration_email
+from sm_app.userinfo import get_user_info
 
 @sm_app.route('/')
 def hello():
     # send_forget_email(name, surname, password, lang, recipient)
     # send_forget_email('Sergei', 'Voloktin', 'psswds', 'ru', 'yuri.volokitin@gmail.com')
-    return 'Hello User, Email Sent'
+    return 'Hello User'
 
 @sm_app.route('/register')
 def registration_html():
-    return render_template('index.html')
+    # send_registration_email(name, surname, lang, recipient)
+    send_registration_email('Yura', 'Volokitin', 'ru', 'yuri.volokitin@gmail.com')
+    return 'Registration email were Email Sent'
+
+@sm_app.route('/showreg')
+def show_registration_html():
+    arguments = {
+        'subject': 'Welcome to SuperMathSuperMath.xyz',
+        'name': 'Yura',
+        'surname': 'Volokitin',
+        'title': 'Welcome to Arithmetical world',
+        'description': 'SuperMath is a collection of free math activities to practice straightforward arithmetic problems that adapt as they learn.',
+        'text': 'Kids can keep results, trade points, select avatars and track the progress using fluency reports and dashboards.',
+    }
+    return render_template('index.html', **arguments)
 
 @sm_app.route('/api/forget', methods = ['POST'])
 def forget():
@@ -295,5 +297,6 @@ def registration():
                 time.sleep(1)
                 user = User.query.filter_by(EMAIL=email).first()
                 result = get_user_info(user)
+                send_registration_email(name, last, lang, email)
 
     return (result, 200)

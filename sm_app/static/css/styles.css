@@ -1,15 +1,4 @@
-﻿<!DOCTYPE html>
-<html lang='en'>
-<head> <title> {{ subject }} </title>
-<meta charset='UTF-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<link rel='stylesheet' type='text/css' href='http://supermath.xyz:3000/static/css/styles.css'>
-<style>
-    @font-face {
-        font-family: 'Grinched';
-        src: url(http://supermath.xyz:3000/static/fonts/Grinched2.0.ttf) format('truetype');
-    }
-    html {
+﻿    html {
         height: 100%;
     }
     body {
@@ -119,44 +108,3 @@
             height: 90%;
         }
     }
-</style>
-</head>
-<body>
-    <div class='wrapper'>
-        <div class='header_line'>
-            <div class='lightblue_line'></div>
-            <div class='blue_line'></div>
-            <div class='darkgreen_line'></div>
-            <div class='green_line'></div>
-            <div class='lightgreen_line'></div>
-            <div class='yellow_line'></div>
-            <div class='orange_line'></div>
-            <div class='lightred_line'></div>
-            <div class='red_line'></div>
-            <div class='violend_line'></div>
-        </div>
-
-        <div class='header'>
-            <h1>SUPERMATH.XYZ</h1>
-        </div>
-
-        <div class='content'>
-            <h3> {{ name }} {{ surname }}, {{ title }} </h3>
-            <p> {{ description }} </p>
-        </div>
-
-        <div class='content_img'>
-            <img src='http://supermath.xyz:3000/static/images/plain_tasks_image.jpg' alt='tasks_image' width='80%'>
-        </div>
-
-        <div class='content'>
-            <p> {{ text }} </p>
-        </div>
-
-        <div class='content_img'>
-            <img src='http://supermath.xyz:3000/static/images/userinfo_image.jpg' alt='tasks_image' width='80%'>
-        </div>
-
-    </div>
-</body>
-</html>
