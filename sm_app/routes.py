@@ -290,7 +290,8 @@ def registration():
             except Exception as err:
                 result = jsonify({'error': 'User birthdate does not match expected format YYYY-MM-DD: ' + str(age)})
             else:
-                user = User(NAME=name, LANG=lang, AGE=birth, SURNAME=last, EMAIL=email, PSWD=pswd, PSWDHASH=pswdhash, CREATION_DATE=datetime.now())
+                # added 100 point as signup bonus
+                user = User(NAME=name, LANG=lang, AGE=birth, SURNAME=last, EMAIL=email, PSWD=pswd, PSWDHASH=pswdhash, CREATION_DATE=datetime.now(), PASS='100')
                 sm_db.session.add(user)
                 sm_db.session.commit()
                 # sleep 1 second for DB operation

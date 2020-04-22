@@ -3,12 +3,7 @@
 <head> <title> {{ subject }} </title>
 <meta charset='UTF-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<link rel='stylesheet' type='text/css' href='http://supermath.xyz:3000/static/css/styles.css'>
 <style>
-    @font-face {
-        font-family: 'Grinched';
-        src: url(http://supermath.xyz:3000/static/fonts/Grinched2.0.ttf) format('truetype');
-    }
     html {
         height: 100%;
     }
@@ -95,28 +90,23 @@
         background-color: #9900cc;
     }
     .header {
-        padding-top: 1%;
-        text-align: center;
-        color: orange;
-
-        font-family: 'Grinched';
-        font-variant: 'small-caps';
-        text-shadow: 1px 1px 2px black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .content {
         padding-left: 10%;
         padding-right: 10%;
-    }
-    .content_img {
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
     @media only screen and (max-height: 800px) {
         .wrapper {
             width: 90%;
             height: 90%;
+        }
+        .content {
+            padding-left: 5%;
+            padding-right: 5%;
         }
     }
 </style>
@@ -137,7 +127,7 @@
         </div>
 
         <div class='header'>
-            <h1>SUPERMATH.XYZ</h1>
+            <img src='http://supermath.xyz:3000/static/images/supermath.jpg' alt='tasks_image' height='80%'>
         </div>
 
         <div class='content'>
@@ -145,16 +135,29 @@
             <p> {{ description }} </p>
         </div>
 
-        <div class='content_img'>
-            <img src='http://supermath.xyz:3000/static/images/plain_tasks_image.jpg' alt='tasks_image' width='80%'>
+        <div class='content'>
+            <img src='http://supermath.xyz:3000/static/images/plain_tasks_image.jpg' alt='tasks_image' width='100%'>
         </div>
 
         <div class='content'>
             <p> {{ text }} </p>
         </div>
 
-        <div class='content_img'>
-            <img src='http://supermath.xyz:3000/static/images/userinfo_image.jpg' alt='tasks_image' width='80%'>
+        <div class='content'>
+            <img src='http://supermath.xyz:3000/static/images/avatars.jpg' alt='tasks_image' width='100%'>
+        </div>
+
+        <div class='header_line' style='margin-top:3%'>
+            <div class='lightblue_line'></div>
+            <div class='blue_line'></div>
+            <div class='darkgreen_line'></div>
+            <div class='green_line'></div>
+            <div class='lightgreen_line'></div>
+            <div class='yellow_line'></div>
+            <div class='orange_line'></div>
+            <div class='lightred_line'></div>
+            <div class='red_line'></div>
+            <div class='violend_line'></div>
         </div>
 
     </div>
