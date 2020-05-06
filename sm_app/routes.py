@@ -8,8 +8,11 @@ from flask import render_template
 from sm_app import sm_app, sm_db
 from sm_app.user import User
 from sm_app.result import Result
+
+from sm_app.emailer import send_selfemail
 from sm_app.emailer import send_forget_email
 from sm_app.emailer import send_registration_email
+
 from sm_app.userinfo import get_user_info
 
 @sm_app.route('/')
@@ -35,6 +38,21 @@ def show_registration_html():
         'text': 'Kids can keep results, trade points, select avatars and track the progress using fluency reports and dashboards.',
     }
     return render_template('index.html', **arguments)
+
+@sm_app.route('/api/email', methods = ['POST'])
+def selfemail():
+    # send_email({'name': name, 'email': email, 'lang': props.lang, 'message': message});
+    name = request.json.get('name')
+    email = request.json.get('email')
+    lang = request.json.get('lang')
+    message = request.json.get('message')
+    if name is None or email is None or lang is None or message is None:
+        result = jsonify({'error': 'Api Email: missing arguments'})
+    else:
+        send_selfemail(name, email, lang, message)
+        result = jsonify({'email': email})
+
+    return (result, 200)
 
 @sm_app.route('/api/forget', methods = ['POST'])
 def forget():
@@ -290,7 +308,8 @@ def registration():
             except Exception as err:
                 result = jsonify({'error': 'User birthdate does not match expected format YYYY-MM-DD: ' + str(age)})
             else:
-                user = User(NAME=name, LANG=lang, AGE=birth, SURNAME=last, EMAIL=email, PSWD=pswd, PSWDHASH=pswdhash, CREATION_DATE=datetime.now())
+                # added 100 point as signup bonus
+                user = User(NAME=name, LANG=lang, AGE=birth, SURNAME=last, EMAIL=email, PSWD=pswd, PSWDHASH=pswdhash, CREATION_DATE=datetime.now(), PASS='100')
                 sm_db.session.add(user)
                 sm_db.session.commit()
                 # sleep 1 second for DB operation
