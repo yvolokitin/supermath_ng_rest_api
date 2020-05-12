@@ -54,6 +54,29 @@ def selfemail():
 
     return (result, 200)
 
+@sm_app.route('/api/toppassed', methods = ['POST'])
+def toppassed():
+    amount = request.json.get('amount')
+    if amount is None:
+        result = jsonify({'error': 'Topusers Call: missing arguments'})
+    else:
+        users = User.query.order_by(User.PASS).limit(10).all()
+        result = jsonify({'error': 'Topusers Call: not implemented yet'})
+
+    return (result, 200)
+
+@sm_app.route('/api/topfailed', methods = ['POST'])
+def topfailed():
+    amount = request.json.get('amount')
+    if amount is None:
+        result = jsonify({'error': 'Topusers Call: missing arguments'})
+    else:
+        users = User.query.order_by(User.FAIL).limit(10).all()
+        result = jsonify({'error': 'Topusers Call: not implemented yet'})
+
+    return (result, 200)
+
+
 @sm_app.route('/api/forget', methods = ['POST'])
 def forget():
     email = request.json.get('email')
