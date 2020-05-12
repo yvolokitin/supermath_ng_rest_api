@@ -42,3 +42,6 @@ class User(sm_db.Model):
 
     def __repr__(self):
         return '<User {}>'.format(self.NAME)
+
+    def get_userinfo(self):
+        return {'id': self.ID, 'name': self.NAME, 'surname': self.SURNAME, 'pass': self.PASS, 'fail': self.FAIL}

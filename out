@@ -1,8 +1,7 @@
-HTTP/1.0 200 OK
-Content-Type: application/json
-Content-Length: 28
-Access-Control-Allow-Origin: *
-Server: Werkzeug/0.16.1 Python/3.7.5
-Date: Sun, 02 Feb 2020 23:08:04 GMT
+from sm_app.userinfo import extract_top_info
+from sqlalchemy import desc
+from sm_app.user import User
+users = User.query.order_by(desc(User.PASS)).limit(10).all()
+lis = extract_top_info(users)
 
-{"fail":3,"id":1,"pass":15}
+for user in users: print (user.get_userinfo())

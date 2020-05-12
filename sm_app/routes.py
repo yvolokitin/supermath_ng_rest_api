@@ -2,6 +2,8 @@
 import traceback
 from datetime import datetime
 
+from sqlalchemy import desc
+
 from flask import request, jsonify
 from flask import render_template
 
@@ -14,6 +16,7 @@ from sm_app.emailer import send_forget_email
 from sm_app.emailer import send_registration_email
 
 from sm_app.userinfo import get_user_info
+from sm_app.userinfo import extract_top_info
 
 @sm_app.route('/')
 def hello():
@@ -60,8 +63,9 @@ def toppassed():
     if amount is None:
         result = jsonify({'error': 'Topusers Call: missing arguments'})
     else:
-        users = User.query.order_by(User.PASS).limit(10).all()
+        users = User.query.order_by(desc(User.PASS)).limit(10).all()
         result = jsonify({'error': 'Topusers Call: not implemented yet'})
+        result = extract_top_info(users)
 
     return (result, 200)
 
@@ -71,8 +75,8 @@ def topfailed():
     if amount is None:
         result = jsonify({'error': 'Topusers Call: missing arguments'})
     else:
-        users = User.query.order_by(User.FAIL).limit(10).all()
-        result = jsonify({'error': 'Topusers Call: not implemented yet'})
+        users = User.query.order_by(desc(User.FAIL)).limit(10).all()
+        result = extract_top_info(users)
 
     return (result, 200)
 

@@ -13,3 +13,11 @@ def get_user_info(user, refresh=False):
                           'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT,
                           'refresh': True})
     return result
+
+def extract_top_info(users):
+    result = {}
+    item = 1
+    for user in users:
+        result[str(item)] = user.get_userinfo()
+        item += 1
+    return jsonify(result)
