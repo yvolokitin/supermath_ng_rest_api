@@ -60,3 +60,13 @@ CREATE TABLE `friends` (
     FOREIGN KEY (USERID) REFERENCES `users` (`ID`),
     FOREIGN KEY (FRIENDID) REFERENCES `users` (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET `utf8` COLLATE=utf8_general_ci AUTO_INCREMENT=1;
+
+DROP TABLE IF EXISTS `solved`;
+CREATE TABLE `solved` (
+    `ID` bigint(20) NOT NULL auto_increment,
+    `USERID` bigint(20) NOT NULL,
+    `GAMEID` int DEFAULT 0,
+    `BELT` varchar(20) COLLATE `utf8_general_ci` DEFAULT '',
+    PRIMARY KEY (`ID`),
+    FOREIGN KEY (USERID) REFERENCES `users` (`ID`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET `utf8` COLLATE=utf8_general_ci AUTO_INCREMENT=1;

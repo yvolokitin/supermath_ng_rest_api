@@ -10,6 +10,7 @@ from flask import render_template
 from sm_app import sm_app, sm_db
 from sm_app.user import User
 from sm_app.result import Result
+from sm_app.solved import Solved
 
 from sm_app.emailer import send_selfemail
 from sm_app.emailer import send_forget_email
@@ -190,11 +191,14 @@ def update_counter():
 @sm_app.route('/api/update', methods = ['POST'])
 def update_user():
     user_id = request.json.get('user_id')
+    game_id = request.json.get('game_id')
     operation = request.json.get('operation')
     pswdhash = request.json.get('pswdhash')
 
     if user_id is None:
         result = jsonify({'error': 'Missing arguments, no user id received'})
+    elif game_id is None:
+        result = jsonify({'error': 'Missing arguments, no game id received'})
     elif operation is None:
         result = jsonify({'error': 'Missing arguments, no operation received'})
     elif pswdhash is None:
@@ -234,6 +238,11 @@ def update_user():
                         result = Result(USERID=user_id, EXECUTION_DATE=datetime.now(), PASSED=passed, FAILED=failed, DURATION=duration, PERCENT=percent, RATE=rate, BELT=belt, TASK=task)
                         sm_db.session.add(result)
                         sm_db.session.commit()
+
+                        if int(failed) == 0:
+                            solved = Solved(USERID=user_id, GAMEID=game_id, BELT=belt)
+                            sm_db.session.add(solved)
+                            sm_db.session.commit()
 
                         result = jsonify({'id': user.ID, 'pass': user.PASS, 'fail': user.FAIL})
 
