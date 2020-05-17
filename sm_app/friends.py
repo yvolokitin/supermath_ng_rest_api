@@ -15,7 +15,7 @@ class Friends(sm_db.Model):
     __table_args__ = {'useexisting': True}
 
     ID = sm_db.Column('ID', sm_db.BigInteger(), nullable=False, unique=None, default=None, primary_key=True, autoincrement=True)
-    USERID = sm_db.Column('USERID', sm_db.BigInteger(), nullable=False, unique=None, default=None, primary_key=True)
+    USERID = sm_db.Column('USERID', sm_db.BigInteger(), nullable=False, unique=None, default=None)
     FRIENDID = sm_db.Column('FRIENDID', sm_db.BigInteger(), nullable=False, unique=None, default=None)
 
     def __repr__(self):

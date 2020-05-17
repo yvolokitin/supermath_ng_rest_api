@@ -10,7 +10,7 @@ from flask import render_template
 from sm_app import sm_app, sm_db
 from sm_app.user import User
 from sm_app.result import Result
-from sm_app.solved import Solved
+from sm_app.friends import Friends
 
 from sm_app.emailer import send_selfemail
 from sm_app.emailer import send_forget_email
@@ -64,7 +64,7 @@ def toppassed():
     if amount is None:
         result = jsonify({'error': 'Topusers Call: missing arguments'})
     else:
-        users = User.query.order_by(desc(User.PASS)).limit(10).all()
+        users = User.query.order_by(desc(User.PASSED)).limit(10).all()
         result = jsonify({'error': 'Topusers Call: not implemented yet'})
         result = extract_top_info(users)
 
@@ -76,7 +76,7 @@ def topfailed():
     if amount is None:
         result = jsonify({'error': 'Topusers Call: missing arguments'})
     else:
-        users = User.query.order_by(desc(User.FAIL)).limit(10).all()
+        users = User.query.order_by(desc(User.FAILED)).limit(10).all()
         result = extract_top_info(users)
 
     return (result, 200)
@@ -130,7 +130,6 @@ def refresh():
 def login():
     email = request.json.get('email')
     pswdhash = request.json.get('pswdhash')
-
     if email is None or pswdhash is None:
         result = jsonify({'error': 'Login Call: missing arguments, no email or password provided'})
     else:
@@ -312,23 +311,22 @@ def update_user():
 def registration():
     name = request.json.get('name')
     lang = request.json.get('lang')
-    age = request.json.get('age')
+    birthday = request.json.get('birthday')
     last = request.json.get('lastname')
     email = request.json.get('email')
     subcsr = request.json.get('subcsr')
-    pswd = request.json.get('pswd')
     pswdhash = request.json.get('pswdhash')
+    passed = request.json.get('passed')
+    failed = request.json.get('failed')
 
     if name is None:
         result = jsonify({'error': 'Missing arguments, no user name'})
     elif lang is None:
         result = jsonify({'error': 'Missing arguments, no language'})
-    elif age is None:
-        result = jsonify({'error': 'Missing arguments, no birth date'})
+    elif birthday is None:
+        result = jsonify({'error': 'Missing arguments, no birthday'})
     elif email is None:
         result = jsonify({'error': 'Missing arguments, no email address'})
-    elif pswd is None:
-        result = jsonify({'error': 'Missing arguments, no password'})
     elif subcsr is None:
         result = jsonify({'error': 'Missing arguments, no subscription'})
     elif pswdhash is None:
@@ -340,12 +338,17 @@ def registration():
             result = jsonify({'error': 'User with such email address \'' + str(email) + '\' has already registered/existed. Please, use another email address if you want to create a new account.'})
         else:
             try:
-                birth = datetime.strptime(age,'%Y-%m-%d')
+                birth = datetime.strptime(birthday,'%Y-%m-%d')
             except Exception as err:
-                result = jsonify({'error': 'User birthdate does not match expected format YYYY-MM-DD: ' + str(age)})
+                result = jsonify({'error': 'User birthdate does not match expected format YYYY-MM-DD: ' + str(birthday)})
             else:
+                if passed is None:
+                    passed = 100
+                else:
+                    passed = int(passed) + 100
+
                 # added 100 point as signup bonus
-                user = User(NAME=name, LANG=lang, AGE=birth, SURNAME=last, EMAIL=email, PSWD=pswd, PSWDHASH=pswdhash, CREATION_DATE=datetime.now(), PASS='100')
+                user = User(NAME=name, LANG=lang, BIRTHDAY=birthday, SURNAME=last, EMAIL=email, PSWDHASH=pswdhash, CREATION_DATE=datetime.now(), PASSED=passed, SUBSCR=subcsr)
                 sm_db.session.add(user)
                 sm_db.session.commit()
                 # sleep 1 second for DB operation

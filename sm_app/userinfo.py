@@ -3,15 +3,18 @@
 def get_user_info(user, refresh=False):
     if refresh is False:
         result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
-                          'age': user.AGE, 'surname': user.SURNAME, 'email': user.EMAIL,
-                          'creation': user.CREATION_DATE, 'avatar': user.AVATAR,
-                          'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT})
+                          'birthday': user.BIRTHDAY, 'surname': user.SURNAME,
+                          'email': user.EMAIL, 'creation': user.CREATION_DATE,
+                          'avatar': user.AVATAR, 'passed': user.PASSED,
+                          'failed': user.FAILED, 'belt': user.BELT,
+                          'solved': user.SOLVED, 'subscr': user.SUBSCR})
     else:
         result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
-                          'age': user.AGE, 'surname': user.SURNAME, 'email': user.EMAIL,
-                          'creation': user.CREATION_DATE, 'avatar': user.AVATAR,
-                          'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT,
-                          'refresh': True})
+                          'birthday': user.BIRTHDAY, 'surname': user.SURNAME,
+                          'email': user.EMAIL, 'creation': user.CREATION_DATE,
+                          'avatar': user.AVATAR, 'passed': user.PASSED,
+                          'failed': user.FAILED, 'belt': user.BELT,
+                          'solved': user.SOLVED, 'subscr': user.SUBSCR, 'refresh': True})
     return result
 
 def extract_top_info(users):

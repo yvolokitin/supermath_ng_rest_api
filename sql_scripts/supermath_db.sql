@@ -14,26 +14,25 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
     `ID` bigint(20) NOT NULL auto_increment,
     `NAME` varchar(64) COLLATE `utf8_general_ci` NOT NULL,
-    `AGE` datetime NOT NULL,
+    `BIRTHDAY` datetime NOT NULL,
     `SURNAME` varchar(64) COLLATE `utf8_general_ci` DEFAULT '',
     `EMAIL` varchar(255) COLLATE `utf8_general_ci` NOT NULL,
-    `PSWD` varchar(35) COLLATE `utf8_general_ci` NOT NULL,
     `PSWDHASH` varchar(32) DEFAULT '',
-    `USERGROUP` enum('GUEST', 'USER', 'PAID', 'ADMIN', 'FAKE') NOT NULL DEFAULT 'GUEST',
+    `USERGROUP` enum('GUEST', 'USER', 'PAID', 'ADMIN', 'FAKE') NOT NULL DEFAULT 'USER',
     `CREATION_DATE` datetime NOT NULL,
-    `PROGRAM` varchar(20) COLLATE `utf8_general_ci` DEFAULT '',
+    `LANG` varchar(20) COLLATE `utf8_general_ci` DEFAULT 'en',
     `BELT` varchar(20) COLLATE `utf8_general_ci` DEFAULT '',
-    `PASS` bigint(20) DEFAULT 0,
-    `FAIL` bigint(20) DEFAULT 0,
+    `PASSED` bigint(20) DEFAULT 0,
+    `FAILED` bigint(20) DEFAULT 0,
     `AVATAR` varchar(64) COLLATE `utf8_general_ci` DEFAULT 'martin-berube',
+    `SOLVED` varchar(1024) COLLATE `utf8_general_ci` DEFAULT '',
+    `SUBSCR` BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (`ID`),
     UNIQUE KEY `EMAIL_IX` (`EMAIL`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET `utf8` COLLATE=utf8_general_ci AUTO_INCREMENT=1;
 
-ALTER TABLE users ADD `LANG` varchar(20) COLLATE `utf8_general_ci` DEFAULT 'en';
-
-INSERT INTO users (`NAME`, `AGE`, `SURNAME`, `EMAIL`, `PSWD`, `PSWDHASH`, `CREATION_DATE`) VALUES ('Sergey', '2014-01-28 06:13:13', 'Volokitin', 'volokitin@bk.ru', 'asdas12', '123456', '2020-01-31 13:13:13');
-INSERT INTO users (`NAME`, `AGE`, `SURNAME`, `EMAIL`, `PSWD`, `PSWDHASH`, `CREATION_DATE`) VALUES ('Roman', '2009-07-07 18:13:13', 'Volokitin', 'yuri.volokitin@bk.ru', 'asdas12', '123456', '2020-01-31 13:13:13');
+INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Sergei', '2014-01-28 06:13:13', 'Volokitin', 'volokitin@bk.ru', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '254', '13');
+INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Roman', '2009-07-07 18:13:13', 'Volokitin', 'yuri.volokitin@bk.ru', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '3', '0');
 
 DROP TABLE IF EXISTS `results`;
 CREATE TABLE `results` (
@@ -59,14 +58,4 @@ CREATE TABLE `friends` (
     PRIMARY KEY (`ID`),
     FOREIGN KEY (USERID) REFERENCES `users` (`ID`),
     FOREIGN KEY (FRIENDID) REFERENCES `users` (`ID`)
-) ENGINE=MyISAM DEFAULT CHARACTER SET `utf8` COLLATE=utf8_general_ci AUTO_INCREMENT=1;
-
-DROP TABLE IF EXISTS `solved`;
-CREATE TABLE `solved` (
-    `ID` bigint(20) NOT NULL auto_increment,
-    `USERID` bigint(20) NOT NULL,
-    `GAMEID` int DEFAULT 0,
-    `BELT` varchar(20) COLLATE `utf8_general_ci` DEFAULT '',
-    PRIMARY KEY (`ID`),
-    FOREIGN KEY (USERID) REFERENCES `users` (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET `utf8` COLLATE=utf8_general_ci AUTO_INCREMENT=1;
