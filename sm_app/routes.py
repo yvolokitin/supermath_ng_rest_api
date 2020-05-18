@@ -190,14 +190,11 @@ def update_counter():
 @sm_app.route('/api/update', methods = ['POST'])
 def update_user():
     user_id = request.json.get('user_id')
-    game_id = request.json.get('game_id')
     operation = request.json.get('operation')
     pswdhash = request.json.get('pswdhash')
 
     if user_id is None:
         result = jsonify({'error': 'Missing arguments, no user id received'})
-    elif game_id is None:
-        result = jsonify({'error': 'Missing arguments, no game id received'})
     elif operation is None:
         result = jsonify({'error': 'Missing arguments, no operation received'})
     elif pswdhash is None:
@@ -216,6 +213,7 @@ def update_user():
                 if operation == 'results':
                     passed = request.json.get('passed')
                     failed = request.json.get('failed')
+                    game_id = request.json.get('game_id')
                     # needed for separate results table
                     duration = request.json.get('duration')
                     percent = request.json.get('percent')
@@ -226,11 +224,16 @@ def update_user():
                     if passed is None or failed is None:
                         result = jsonify({'error': 'Received wrong passed/failed counters, passed: '
                                         + str(passed) + '/failed: ' + str(failed)})
-                    elif duration is None or percent is None or rate is None or belt is None or task is None:
-                        result = jsonify({'error': 'Received wrong duration/percent/rate/belt/task parameters'})
+                    elif game_id is None or duration is None or percent is None or rate is None or belt is None or task is None:
+                        result = jsonify({'error': 'Received wrong game_id/duration/percent/rate/belt/task parameters'})
                     else:
-                        user.PASS = int(user.PASS) + int(passed)
-                        user.FAIL = int(user.FAIL) + int(failed)
+                        solved = None
+                        if int(failed) == 0:
+                            solved = str(belt) + str(game_id) + ','
+                            user.SOLVED += solved
+
+                        user.PASSED = int(user.PASSED) + int(passed)
+                        user.FAILED = int(user.FAILED) + int(failed)
                         user.BELT = belt
                         sm_db.session.commit()
 
@@ -238,12 +241,7 @@ def update_user():
                         sm_db.session.add(result)
                         sm_db.session.commit()
 
-                        if int(failed) == 0:
-                            solved = Solved(USERID=user_id, GAMEID=game_id, BELT=belt)
-                            sm_db.session.add(solved)
-                            sm_db.session.commit()
-
-                        result = jsonify({'id': user.ID, 'pass': user.PASS, 'fail': user.FAIL})
+                        result = jsonify({'id': user.ID, 'passed': user.PASSED, 'failed': user.FAILED, 'solved': user.SOLVED})
 
                 elif operation == 'name':
                     name = request.json.get('name')
@@ -270,7 +268,7 @@ def update_user():
                     else:
                         user.EMAIL = email
                         sm_db.session.commit()
-                        result = jsonify({'id': user.ID})
+                        result = jsonify({'id': user.ID, 'email': user.EMAIL})
 
                 elif operation == 'password':
                     pswd = request.json.get('pswd')
