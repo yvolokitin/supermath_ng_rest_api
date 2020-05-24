@@ -11,6 +11,7 @@ from sm_app import sm_app, sm_db
 from sm_app.user import User
 from sm_app.result import Result
 from sm_app.friends import Friends
+from sm_app.scores import Scores
 
 from sm_app.emailer import send_selfemail
 from sm_app.emailer import send_forget_email
@@ -58,29 +59,20 @@ def selfemail():
 
     return (result, 200)
 
-@sm_app.route('/api/toppassed', methods = ['POST'])
-def toppassed():
+@sm_app.route('/api/scores', methods = ['POST'])
+def getscores():
     amount = request.json.get('amount')
     if amount is None:
         result = jsonify({'error': 'Topusers Call: missing arguments'})
     else:
-        users = User.query.order_by(desc(User.PASSED)).limit(10).all()
-        result = jsonify({'error': 'Topusers Call: not implemented yet'})
-        result = extract_top_info(users)
+        # select scores.SCORE, users.ID, users.NAME, users.SURNAME, users.FAILED, users.PASSED from users, scores where users.ID=scores.USERID order by scores.SCORE DESC;
+        users = sm_db.session.query(User, Scores).filter(User.ID == Scores.USERID).order_by(desc(Scores.SCORE)).limit(10).all()
+        data = []
+        for user in users:
+            data.append({'id': user.User.ID, 'name': user.User.NAME, 'surname': user.User.SURNAME, 'passed': user.User.PASSED, 'failed': user.User.FAILED, 'score': user.Scores.SCORE})
+        result = jsonify(data)
 
     return (result, 200)
-
-@sm_app.route('/api/topfailed', methods = ['POST'])
-def topfailed():
-    amount = request.json.get('amount')
-    if amount is None:
-        result = jsonify({'error': 'Topusers Call: missing arguments'})
-    else:
-        users = User.query.order_by(desc(User.FAILED)).limit(10).all()
-        result = extract_top_info(users)
-
-    return (result, 200)
-
 
 @sm_app.route('/api/forget', methods = ['POST'])
 def forget():
@@ -230,10 +222,13 @@ def update_user():
                         solved = None
                         if int(failed) == 0:
                             solved = str(belt) + str(game_id) + ','
-                            user.SOLVED += solved
+                            if solved not in user.SOLVED:
+                                user.SOLVED += solved
 
-                        user.PASSED = int(user.PASSED) + int(passed)
-                        user.FAILED = int(user.FAILED) + int(failed)
+                        passed_counter = int(user.PASSED) + int(passed)
+                        failed_counter = int(user.FAILED) + int(failed)
+                        user.PASSED = passed_counter
+                        user.FAILED = failed_counter
                         user.BELT = belt
                         sm_db.session.commit()
 
@@ -241,7 +236,20 @@ def update_user():
                         sm_db.session.add(result)
                         sm_db.session.commit()
 
-                        result = jsonify({'id': user.ID, 'passed': user.PASSED, 'failed': user.FAILED, 'solved': user.SOLVED})
+                        score = Scores.query.filter_by(USERID=user_id).first()
+                        if score is None:
+                            current_score = passed_counter - failed_counter*30;
+                            score = Scores(USERID=user_id, SCORE=current_score)
+                            sm_db.session.add(score)
+                            sm_db.session.commit()
+                        else:
+                            score.SCORE = passed_counter - failed_counter*30;
+                            sm_db.session.commit()
+
+                        if int(failed) == 0:
+                            result = jsonify({'id': user.ID, 'passed': user.PASSED, 'failed': user.FAILED})
+                        else:
+                            result = jsonify({'id': user.ID, 'passed': user.PASSED, 'failed': user.FAILED, 'solved': user.SOLVED})
 
                 elif operation == 'name':
                     name = request.json.get('name')
