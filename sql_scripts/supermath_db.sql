@@ -24,14 +24,15 @@ CREATE TABLE `users` (
     `BELT` varchar(20) COLLATE `utf8_general_ci` DEFAULT '',
     `PASSED` bigint(20) DEFAULT 0,
     `FAILED` bigint(20) DEFAULT 0,
-    `AVATAR` varchar(64) COLLATE `utf8_general_ci` DEFAULT 'martin-berube',
+    `CARDS` int(20) DEFAULT 0,
+    `AVATAR` varchar(64) COLLATE `utf8_general_ci` DEFAULT 'martin',
     `SOLVED` varchar(1024) COLLATE `utf8_general_ci` DEFAULT '',
     `SUBSCR` BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (`ID`),
     UNIQUE KEY `EMAIL_IX` (`EMAIL`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET `utf8` COLLATE=utf8_general_ci AUTO_INCREMENT=1;
 
-INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Sergei', '2014-01-28', 'Volokitin', 'volokitin@bk.ru', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '254', '13');
+INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Sergei', '2014-01-28', 'Volokitin', 'volokitin@bk.ru', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '454', '13');
 INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Roman', '2009-07-07', 'Volokitin', 'yuri.volokitin@bk.ru', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '3', '0');
 INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Sivakumar', '2010-09-13', 'Subbaiyan', 'ssubbaiyan@lb.com', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '326', '28');
 INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Raju', '2010-09-13', 'Solomon', 'rsolomono@lb.com', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '518', '42');

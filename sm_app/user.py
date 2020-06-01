@@ -27,7 +27,7 @@ class User(sm_db.Model):
 
     ID = sm_db.Column('ID', sm_db.BigInteger(), nullable=False, unique=None, default=None, primary_key=True)
     NAME = sm_db.Column('NAME', sm_db.String(20), nullable=False, unique=None, default=None)
-    BIRTHDAY = sm_db.Column('BIRTHDAY', sm_db.DateTime(timezone=False), nullable=False, unique=None, default=None)
+    BIRTHDAY = sm_db.Column('BIRTHDAY', sm_db.String(64), nullable=False, unique=None, default=None)
     SURNAME = sm_db.Column('SURNAME', sm_db.String(64), nullable=False, unique=None, default='')
     EMAIL = sm_db.Column('EMAIL', sm_db.String(255), nullable=False, unique=True, default=None)
     PSWDHASH = sm_db.Column('PSWDHASH', sm_db.String(32), nullable=False, unique=None, default='')
@@ -37,7 +37,8 @@ class User(sm_db.Model):
     BELT = sm_db.Column('BELT', sm_db.String(20), nullable=False, unique=None, default='')
     PASSED = sm_db.Column('PASSED', sm_db.BigInteger(), nullable=False, unique=None, default=0)
     FAILED = sm_db.Column('FAILED', sm_db.BigInteger(), nullable=False, unique=None, default=0)
-    AVATAR = sm_db.Column('AVATAR', sm_db.String(64), nullable=False, unique=None, default='martin-berube')
+    CARDS = sm_db.Column('CARDS', sm_db.Integer(), nullable=False, unique=None, default=0)
+    AVATAR = sm_db.Column('AVATAR', sm_db.String(64), nullable=False, unique=None, default='martin')
     SOLVED = sm_db.Column('SOLVED', sm_db.String(1024), nullable=False, unique=None, default='')
     SUBSCR = sm_db.Column('SUBSCR', sm_db.Boolean(), nullable=False, unique=None, default=False)
 
