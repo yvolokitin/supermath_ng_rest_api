@@ -68,7 +68,14 @@ def getscores():
         users = sm_db.session.query(User, Scores).filter(User.ID == Scores.USERID).order_by(desc(Scores.SCORE)).limit(10).all()
         data = []
         for user in users:
-            data.append({'id': user.User.ID, 'name': user.User.NAME, 'surname': user.User.SURNAME, 'passed': user.User.PASSED, 'failed': user.User.FAILED, 'score': user.Scores.SCORE})
+            data.append({'id': user.User.ID,
+                'name': user.User.NAME,
+                'surname': user.User.SURNAME,
+                'avatar': user.User.AVATAR,
+                'passed': user.User.PASSED,
+                'failed': user.User.FAILED,
+                'score': user.Scores.SCORE,
+            })
         result = jsonify(data)
 
     return (result, 200)
@@ -145,15 +152,16 @@ def login():
 def update_counter():
     user_id = request.json.get('user_id')
     pswdhash = request.json.get('pswdhash')
+    belt = request.json.get('belt')
     passed = request.json.get('passed')
     failed = request.json.get('failed')
-    belt = request.json.get('belt')
+    cards = request.json.get('cards')
 
     if user_id is None:
         result = jsonify({'error': 'Counter Call: missing arguments, no user id received'})
     elif pswdhash is None:
         result = jsonify({'error': 'Counter Call: no authorization method provided'})
-    elif passed is None or failed is None or belt is None:
+    elif passed is None or failed is None or belt is None or cards is None:
         result = jsonify({'error': 'Counter Call: missing arguments, no user info and results'})
     else:
         user = None
@@ -168,13 +176,26 @@ def update_counter():
             else:
                 pass_dec = int(passed, 2)
                 fail_dec = int(failed, 2)
+                card_dec = int(cards, 2)
+
                 pass_value =  int(pass_dec / user_id)
                 fail_value =  int(fail_dec / user_id)
-                user.PASS = pass_value
-                user.FAIL = fail_value
+                card_value =  int(card_dec / user_id)
+
+                user.PASSED = pass_value
+                user.FAILED = fail_value
+                user.CARDS = card_value
                 user.BELT = belt
+
                 sm_db.session.commit()
-                result = jsonify({'id': user.ID, 'pass': user.PASS, 'fail': user.FAIL, 'belt': user.BELT})
+                result = jsonify({
+                    'operation': 'exchanged',
+                    'id': user.ID,
+                    'belt': user.BELT,
+                    'passed': user.PASSED,
+                    'failed': user.FAILED,
+                    'cards': user.CARDS
+                })
 
     return (result, 200)
 
