@@ -11,7 +11,7 @@ CREATE TABLE `friends` (
 ) ENGINE=MyISAM DEFAULT CHARACTER SET `utf8` COLLATE=utf8_general_ci AUTO_INCREMENT=1;
 '''
 class Friends(sm_db.Model):
-    __tablename__ = 'solved'
+    __tablename__ = 'friends'
     __table_args__ = {'useexisting': True}
 
     ID = sm_db.Column('ID', sm_db.BigInteger(), nullable=False, unique=None, default=None, primary_key=True, autoincrement=True)
