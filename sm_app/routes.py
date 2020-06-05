@@ -80,24 +80,30 @@ def getscores():
 
     return (result, 200)
 
-@sm_app.route('/api/forget', methods = ['POST'])
-def forget():
-    email = request.json.get('email')
-    if email is None:
-        result = jsonify({'error': 'Forget Call: missing arguments, no email received'})
+@sm_app.route('/api/results', methods = ['POST'])
+def results():
+    user_id = request.json.get('user_id')
+    pswdhash = request.json.get('pswdhash')
+    month = request.json.get('month')
+
+    if user_id is None:
+        result = jsonify({'error': 'Results Call: missing arguments, no user id received'})
+    elif pswdhash is None:
+        result = jsonify({'error': 'Results Call: no authorization method provided'})
+    elif month is None:
+        result = jsonify({'error': 'Results Call: no query information'})
     else:
-        user = None
+        result = None
         try:
-            user = User.query.filter_by(EMAIL=email).first()
+            results = Result.query.filter(extract('month', Result.EXECUTION_DATE)==6).filter_by(USERID=user_id).all()
         except Exception as e:
             print(traceback.format_exc())
-            result = jsonify({'error': 'Forget Call: exception raised ' + e})
+            result = jsonify({'error': 'Refresh Call: exception raised during sql query ' + str(e)})
         else:
-            if user is None:
-                result = jsonify({'error': 'Forget Call: No user found with \'' + str(email) + '\' email address'})
+            if results is None:
+                result = jsonify({'error': 'Refresh Call: no registered user with user ID: ' + str(user_id)})
             else:
-                send_forget_email(user.NAME, user.SURNAME, user.PSWD, user.LANG, email)
-                result = jsonify({'email': email})
+                result = jsonify(results)
 
     return (result, 200)
 
