@@ -3,6 +3,7 @@ import traceback
 from datetime import datetime
 
 from sqlalchemy import desc
+from sqlalchemy import extract
 
 from flask import request, jsonify
 from flask import render_template
@@ -95,15 +96,19 @@ def results():
     else:
         result = None
         try:
-            results = Result.query.filter(extract('month', Result.EXECUTION_DATE)==6).filter_by(USERID=user_id).all()
+            results = Result.query.filter(extract('month', Result.EXECUTION_DATE)==month).filter_by(USERID=user_id).all()
         except Exception as e:
             print(traceback.format_exc())
-            result = jsonify({'error': 'Refresh Call: exception raised during sql query ' + str(e)})
+            result = jsonify({'error': 'Results Call: exception raised during sql query ' + str(e)})
         else:
             if results is None:
-                result = jsonify({'error': 'Refresh Call: no registered user with user ID: ' + str(user_id)})
+                result = jsonify({'error': 'Results Call: no registered user with user ID: ' + str(user_id)})
             else:
-                result = jsonify(results)
+                data = []
+                for res in results:
+                    data.append(res.get_result())
+
+                result = jsonify(data)
 
     return (result, 200)
 

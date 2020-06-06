@@ -33,3 +33,15 @@ class Result(sm_db.Model):
 
     def __repr__(self):
         return '<Result {}>'.format(self.USERID)
+
+    def get_result(self):
+        return {'id': self.USERID,
+            'date': self.EXECUTION_DATE,
+            'passed': self.PASSED,
+            'failed': self.FAILED,
+            'duration': self.DURATION,
+            'percent': self.PERCENT,
+            'rate': self.RATE,
+            'belt': self.BELT,
+            'task': self.TASK,
+        }
