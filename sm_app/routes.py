@@ -116,10 +116,13 @@ def results():
 def refresh():
     user_id = request.json.get('user_id')
     pswdhash = request.json.get('pswdhash')
+    refresh = request.json.get('refresh')
     if user_id is None:
         result = jsonify({'error': 'Refresh Call: missing arguments, no user id received'})
     elif pswdhash is None:
         result = jsonify({'error': 'Refresh Call: no authorization method provided'})
+    elif refresh is None:
+        result = jsonify({'error': 'Refresh Call: no refresh option'})
     else:
         user = None
         try:
@@ -131,7 +134,10 @@ def refresh():
             if user is None:
                 result = jsonify({'error': 'Refresh Call: no registered user with user ID: ' + str(user_id)})
             else:
-                result = get_user_info(user, True)
+                if refresh is True:
+                    result = get_user_info(user, True)
+                else:
+                    result = get_user_info(user, False)
 
     return (result, 200)
 
@@ -251,7 +257,7 @@ def update_user():
                         result = jsonify({'error': 'Received wrong game_uid/duration/percent/rate/belt/task parameters'})
                     else:
                         if (int(failed) == 0) and (int(passed) > 0):
-                            if game_uid not in user.SOLVED:
+                            if (game_uid not in user.SOLVED) and ('black' not in game_uid):
                                 user.SOLVED += game_uid + ','
                                 cards = int(user.CARDS) + 1
                                 user.CARDS = cards
