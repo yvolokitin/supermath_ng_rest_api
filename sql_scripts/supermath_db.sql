@@ -32,14 +32,14 @@ CREATE TABLE `users` (
     UNIQUE KEY `EMAIL_IX` (`EMAIL`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET `utf8` COLLATE=utf8_general_ci AUTO_INCREMENT=1;
 
-INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Sergei', '2014-01-28', 'Volokitin', 'volokitin@bk.ru', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '454', '13');
-INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Roman', '2009-07-07', 'Volokitin', 'yuri.volokitin@bk.ru', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '3', '0');
-INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Sivakumar', '2010-09-13', 'Subbaiyan', 'ssubbaiyan@lb.com', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '326', '28');
-INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Raju', '2010-09-13', 'Solomon', 'rsolomono@lb.com', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '518', '42');
-INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Ankur', '2010-09-13', 'Singh', 'ankursingh@lg.com', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '2034', '96');
-INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Ankur', '2010-10-18', 'Singh', 'ankursingh@lg.com', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '2034', '96');
-INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Anand', '2010-07-02', 'Gnanasundar', 'agnanasundar.contractor@lb.com', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '315', '2');
-INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`) VALUES ('Jibran', '2010-07-02', 'Patel', 'jpatel@lb.com', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '615', '11');
+INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`, `CARDS`, `SOLVED`) VALUES ('Sergei', '2014-01-28', 'Volokitin', 'volokitin@bk.ru', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '233', '0', '6', 'white1,white2,white3,white4,white6,white8,white5,');
+INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`, `CARDS`, `SOLVED`) VALUES ('Roman', '2009-07-07', 'Volokitin', 'yuri.volokitin@bk.ru', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '390', '0', '15', 'white1,white2,white3,white4,white5,white6,white7,white8,white9,orange1,navy1,navy2,navy3,orange2,orange3,');
+INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`, `CARDS`, `SOLVED`) VALUES ('Hem', '2010-09-13', 'Subbaiyan', 'Alisha@lb.com', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '326', '8', '4', 'white1,white2,white3,white4,');
+INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`, `CARDS`, `SOLVED`) VALUES ('Jash', '2010-09-13', 'Solomon', 'Jash@lb.com', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '518', '2', '4', 'white1,white2,white3,white4,');
+INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`, `CARDS`, `SOLVED`) VALUES ('Kashvi', '2010-09-13', 'Singh', 'Kashvi@lg.com', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '666', '6', '4', 'white1,white2,white3,white4,');
+INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`, `CARDS`, `SOLVED`) VALUES ('Ananya', '2010-10-18', 'Singh', 'Ananya@lg.com', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '684', '9', '4', 'white1,white2,white3,white4,');
+INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`, `CARDS`, `SOLVED`) VALUES ('Pavati', '2010-07-02', 'Gnanasundar', 'Pavati@lb.com', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '315', '2', '4', 'white1,white2,white3,white4,');
+INSERT INTO users (`NAME`, `BIRTHDAY`, `SURNAME`, `EMAIL`, `PSWDHASH`, `CREATION_DATE`, `PASSED`, `FAILED`, `CARDS`, `SOLVED`) VALUES ('Taara', '2010-07-02', 'Patel', 'Taara@lb.com', '932dead244625bcf80d74bd69ba4f23b', '2020-01-31 13:13:13', '615', '11', '4', 'white1,white2,white3,white4,');
 
 
 DROP TABLE IF EXISTS `results`;
@@ -67,3 +67,21 @@ CREATE TABLE `friends` (
     FOREIGN KEY (USERID) REFERENCES `users` (`ID`),
     FOREIGN KEY (FRIENDID) REFERENCES `users` (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET `utf8` COLLATE=utf8_general_ci AUTO_INCREMENT=1;
+
+
+DROP TABLE IF EXISTS `scores`;
+CREATE TABLE `scores` (
+    `ID` bigint(20) NOT NULL auto_increment,
+    `USERID` bigint(20) NOT NULL,
+    `SCORE` bigint(20) NOT NULL,
+    PRIMARY KEY (`ID`),
+    FOREIGN KEY (USERID) REFERENCES `users` (`ID`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET `utf8` COLLATE=utf8_general_ci AUTO_INCREMENT=1;
+
+
+
+
+
+
+
+
