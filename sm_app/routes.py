@@ -203,6 +203,15 @@ def update_counter():
                 user.FAILED = fail_value
                 user.CARDS = card_value
                 user.BELT = belt
+                sm_db.session.commit()
+
+                score = Scores.query.filter_by(USERID=user_id).first()
+                current_score = pass_value - fail_value*30;
+                if score is None:
+                    score = Scores(USERID=user_id, SCORE=current_score)
+                    sm_db.session.add(score)
+                else:
+                    score.SCORE = current_score;
 
                 sm_db.session.commit()
                 result = jsonify({
