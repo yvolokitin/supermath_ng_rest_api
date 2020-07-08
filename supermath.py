@@ -8,4 +8,4 @@ if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 443
     port = int(os.environ.get('PORT', 3000))
     # sm_app.run(ssl_context='adhoc', host='0.0.0.0', port=port)
-    sm_app.run(host='0.0.0.0', port=port)
+    sm_app.run(host='0.0.0.0', port=port, debug=True)

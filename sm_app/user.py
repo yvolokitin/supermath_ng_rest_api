@@ -35,6 +35,7 @@ class User(sm_db.Model):
     CREATION_DATE = sm_db.Column('CREATION_DATE', sm_db.DateTime(timezone=False), nullable=False, unique=None, default=None)
     LANG = sm_db.Column('LANG', sm_db.String(20), nullable=False, unique=None, default=None)
     BELT = sm_db.Column('BELT', sm_db.String(20), nullable=False, unique=None, default='')
+    LEVEL = sm_db.Column('LEVEL', sm_db.String(20), nullable=False, unique=None, default='NONE')
     PASSED = sm_db.Column('PASSED', sm_db.BigInteger(), nullable=False, unique=None, default=0)
     FAILED = sm_db.Column('FAILED', sm_db.BigInteger(), nullable=False, unique=None, default=0)
     CARDS = sm_db.Column('CARDS', sm_db.Integer(), nullable=False, unique=None, default=0)

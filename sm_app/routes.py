@@ -66,18 +66,84 @@ def getscores():
         result = jsonify({'error': 'Topusers Call: missing arguments'})
     else:
         # select scores.SCORE, users.ID, users.NAME, users.SURNAME, users.FAILED, users.PASSED from users, scores where users.ID=scores.USERID order by scores.SCORE DESC;
-        users = sm_db.session.query(User, Scores).filter(User.ID == Scores.USERID).order_by(desc(Scores.SCORE)).limit(10).all()
+        users = sm_db.session.query(User, Scores).filter(User.ID == Scores.USERID).order_by(desc(Scores.SCORE)).limit(int(amount)).all()
         data = []
         for user in users:
             data.append({'id': user.User.ID,
-                'name': user.User.NAME,
-                'surname': user.User.SURNAME,
-                'avatar': user.User.AVATAR,
-                'passed': user.User.PASSED,
-                'failed': user.User.FAILED,
-                'score': user.Scores.SCORE,
+                    'name': user.User.NAME,
+                    'surname': user.User.SURNAME,
+                    'avatar': user.User.AVATAR,
+                    'passed': user.User.PASSED,
+                    'failed': user.User.FAILED,
+                    'level': user.User.LEVEL,
+                    'score': user.Scores.SCORE,
             })
+
         result = jsonify(data)
+
+    return (result, 200)
+
+@sm_app.route('/api/poopthrow', methods = ['POST'])
+def poopthrow():
+    user_id = request.json.get('user_id')
+    pswdhash = request.json.get('pswdhash')
+    target_id = request.json.get('target_id')
+
+    if user_id is None:
+        result = jsonify({'error': 'PoopThrow Call: missing arguments, no user id received'})
+    elif pswdhash is None:
+        result = jsonify({'error': 'PoopThrow Call: no authorization method provided'})
+    elif target_id is None:
+        result = jsonify({'error': 'PoopThrow Call: no target provided'})
+    else:
+        user = None
+        try:
+            user = User.query.filter_by(ID=user_id, PSWDHASH=pswdhash).first()
+            target = User.query.filter_by(ID=target_id).first()
+        except Exception as e:
+            print(traceback.format_exc())
+            result = jsonify({'error': 'PoopThrow Call: exception raised during sql query ' + str(e)})
+        else:
+            if user is None:
+                result = jsonify({'error': 'PoopThrow Call: no registered user with user ID: ' + str(user_id)})
+            elif target is None:
+                result = jsonify({'error': 'PoopThrow Call: no registered target user with user ID: ' + str(target_id)})
+            else:
+                if user.PSWDHASH != pswdhash:
+                    result = jsonify({'error': 'PoopThrow Call: incorrect password used \'' + str(email) + '\' account'})
+                else:
+                    if int(user.PASSED) < 50:
+                        result = jsonify({'error': 'PoopThrow Call: user does not have enough points to throw poops'})
+                    else:
+                        new_passed = int(user.PASSED) - 50
+                        user.PASSED = new_passed
+
+                        new_failed = int(target.FAILED) + 1
+                        target.FAILED = new_failed
+                        sm_db.session.commit()
+
+                        score = Scores.query.filter_by(USERID=user_id).first()
+                        current_score = new_passed - (int(user.FAILED) *30);
+                        if score is None:
+                            score = Scores(USERID=user_id, SCORE=current_score)
+                            sm_db.session.add(score)
+                        else:
+                            score.SCORE = current_score;
+
+                        score = Scores.query.filter_by(USERID=target_id).first()
+                        current_score = int(target.PASSED) - (new_failed * 30);
+                        if score is None:
+                            score = Scores(USERID=user_id, SCORE=current_score)
+                            sm_db.session.add(score)
+                        else:
+                            score.SCORE = current_score;
+
+                        sm_db.session.commit()
+                        result = jsonify({
+                            'operation': 'poopthrow',
+                            'id': user.ID,
+                            'passed': new_passed,
+                        })
 
     return (result, 200)
 
@@ -264,15 +330,94 @@ def update_user():
                                         + str(passed) + '/failed: ' + str(failed)})
                     elif game_uid is None or duration is None or percent is None or rate is None or belt is None or task is None:
                         result = jsonify({'error': 'Received wrong game_uid/duration/percent/rate/belt/task parameters'})
+
                     else:
+                        passed_counter = int(user.PASSED)
+                        failed_counter = int(user.FAILED)
+                        game_uid_str = str(game_uid)
+
                         if (int(failed) == 0) and (int(passed) > 0):
-                            if (game_uid not in user.SOLVED) and ('black' not in game_uid):
-                                user.SOLVED += game_uid + ','
+                            if game_uid_str is 'blackT':
+                                passed_counter = passed_counter + int(passed)
+                                user.LEVEL = 'black'
+                                user.SOLVED = ''
                                 cards = int(user.CARDS) + 1
                                 user.CARDS = cards
 
-                        passed_counter = int(user.PASSED) + int(passed)
-                        failed_counter = int(user.FAILED) + int(failed)
+                            elif game_uid_str is 'brownT':
+                                if user.LEVEL != 'black':
+                                    passed_counter = passed_counter + int(passed)
+                                    user.LEVEL = 'brown'
+                                    user.SOLVED = ''
+                                    cards = int(user.CARDS) + 1
+                                    user.CARDS = cards
+
+                            elif game_uid_str == 'navyT':
+                                if user.LEVEL not in ['black', 'brown']:
+                                    passed_counter = passed_counter + int(passed)
+                                    user.LEVEL = 'navy'
+                                    cards = int(user.CARDS) + 1
+                                    user.CARDS = cards
+                                    user.SOLVED = ''
+
+                                    user_solved = user.SOLVED.split(',')
+                                    new_solved = ''
+                                    for sol in user_solved:
+                                        if 'brown' in sol:
+                                            new_solved = new_solved + sol + ','
+                                    user.SOLVED = new_solved
+
+                            elif game_uid_str is 'greenT':
+                                if user.LEVEL not in ['black', 'brown', 'navy']:
+                                    passed_counter = passed_counter + int(passed)
+                                    user.LEVEL = 'green'
+                                    cards = int(user.CARDS) + 1
+                                    user.CARDS = cards
+
+                                    user_solved = user.SOLVED.split(',')
+                                    new_solved = ''
+                                    for sol in user_solved:
+                                        if (('brown' in sol) or ('navy' in sol)):
+                                            new_solved = new_solved + sol + ','
+                                    user.SOLVED = new_solved
+
+                            elif game_uid_str is 'orangeT':
+                                if user.LEVEL not in ['black', 'brown', 'navy', 'green']:
+                                    passed_counter = passed_counter + int(passed)
+                                    user.LEVEL = 'orange'
+                                    cards = int(user.CARDS) + 1
+                                    user.CARDS = cards
+
+                                    user_solved = user.SOLVED.split(',')
+                                    new_solved = ''
+                                    for sol in user_solved:
+                                        if (('white' not in sol) and ('orange' not in sol)):
+                                            new_solved = new_solved + sol + ','
+                                    user.SOLVED = new_solved
+
+                            elif game_uid_str is 'whiteT':
+                                if user.LEVEL not in ['black', 'brown', 'navy', 'green', 'orange']:
+                                    passed_counter = passed_counter + int(passed)
+                                    user.LEVEL = 'white'
+                                    cards = int(user.CARDS) + 1
+                                    user.CARDS = cards
+
+                                    user_solved = user.SOLVED.split(',')
+                                    new_solved = ''
+                                    for sol in user_solved:
+                                        if 'white' not in sol:
+                                            new_solved = new_solved + sol + ','
+                                    user.SOLVED = new_solved
+
+                            elif (game_uid_str not in user.SOLVED) and ('black' not in game_uid_str):
+                                passed_counter = passed_counter + int(passed)
+                                user.SOLVED += game_uid + ','
+                                cards = int(user.CARDS) + 1
+                                user.CARDS = cards
+                        else:
+                            passed_counter = passed_counter + int(passed)
+                            failed_counter = failed_counter + int(failed)
+
                         user.PASSED = passed_counter
                         user.FAILED = failed_counter
                         user.BELT = belt

@@ -1,4 +1,6 @@
-﻿from flask import Flask
+﻿import logging
+
+from flask import Flask
 # from flask import Flask, request, jsonify
 from flask_mail import Mail
 from flask_cors import CORS
@@ -8,6 +10,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sm_app.config import Config
 
 sm_app = Flask(__name__)
+logging.basicConfig(level=logging.DEBUG)
 
 mail_settings = {
     'MAIL_SERVER': 'smtp.gmail.com',
