@@ -78,10 +78,18 @@ CREATE TABLE `scores` (
     FOREIGN KEY (USERID) REFERENCES `users` (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET `utf8` COLLATE=utf8_general_ci AUTO_INCREMENT=1;
 
+DROP TABLE IF EXISTS `tasks`;
+CREATE TABLE `tasks` (
+    `ID` bigint(20) NOT NULL auto_increment,
+    `LANG` varchar(3) NOT NULL,
+    `LEVEL` varchar(32) DEFAULT '',
+    `DESCRIPTION` varchar(1024) NOT NULL,
+    `RESULT` varchar(128) NOT NULL,
+    `UNITS` varchar(128) DEFAULT '',
+    `IMAGE` varchar(128) DEFAULT '',
+    PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;
 
+INSERT INTO tasks (`LEVEL`, `LANG`, `DESCRIPTION`, `RESULT`) VALUES ('task_1', 'ru', 'Вычисли разность 52 и 19', '33');
 
-
-
-
-
-
+SELECT * FROM tasks ORDER BY RAND() LIMIT 1;

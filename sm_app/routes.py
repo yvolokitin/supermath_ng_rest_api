@@ -3,6 +3,7 @@ import traceback
 from datetime import datetime
 
 from sqlalchemy import desc
+from sqlalchemy import func
 from sqlalchemy import extract
 
 from flask import request, jsonify
@@ -13,6 +14,7 @@ from sm_app.user import User
 from sm_app.result import Result
 from sm_app.friends import Friends
 from sm_app.scores import Scores
+from sm_app.tasks import Tasks
 
 from sm_app.emailer import send_selfemail
 from sm_app.emailer import send_forget_email
@@ -231,6 +233,39 @@ def login():
 
     return (result, 200)
 
+@sm_app.route('/api/gettask', methods = ['POST'])
+def get_task():
+    lang = request.json.get('lang')
+    level = request.json.get('level')
+    if level is None:
+        result = jsonify({'error': 'Get Task: missing arguments'})
+    else:
+        if lang is None:
+            lang='en'
+
+        task = None
+        try:
+            # SELECT * FROM tasks ORDER BY RAND() LIMIT 1;
+            task = Tasks.query.order_by(random()).first()
+        except Exception as e:
+            print(traceback.format_exc())
+            result = jsonify({'error': 'Get Task: exception raised' + e})
+        else:
+            if task is None:
+                result = jsonify({'error': 'Get Task: no task found in DB'})
+            else:
+                result = jsonify({
+                    'id': task.ID,
+                    'lang': task.LANG,
+                    'name': task.NAME,
+                    'level': task.LEVEL,
+                    'description': task.DESCRIPTION,
+                    'result': task.RESULT,
+                    'units': task.UNITS,
+                    'image': task.IMAGE,})
+
+    return (result, 200)
+
 @sm_app.route('/api/counter', methods = ['POST'])
 def update_counter():
     user_id = request.json.get('user_id')
@@ -334,32 +369,32 @@ def update_user():
                     else:
                         passed_counter = int(user.PASSED)
                         failed_counter = int(user.FAILED)
+                        user_level_str = str(user.LEVEL)
                         game_uid_str = str(game_uid)
 
                         if (int(failed) == 0) and (int(passed) > 0):
-                            if game_uid_str is 'blackT':
+                            if game_uid_str == 'blackT':
                                 passed_counter = passed_counter + int(passed)
+                                cards = int(user.CARDS) + 1
                                 user.LEVEL = 'black'
                                 user.SOLVED = ''
-                                cards = int(user.CARDS) + 1
                                 user.CARDS = cards
 
-                            elif game_uid_str is 'brownT':
-                                if user.LEVEL != 'black':
+                            elif game_uid_str == 'brownT':
+                                if user_level_str is not 'black':
                                     passed_counter = passed_counter + int(passed)
+                                    cards = int(user.CARDS) + 1
                                     user.LEVEL = 'brown'
                                     user.SOLVED = ''
-                                    cards = int(user.CARDS) + 1
                                     user.CARDS = cards
 
                             elif game_uid_str == 'navyT':
-                                if user.LEVEL not in ['black', 'brown']:
+                                if user_level_str not in ['black', 'brown']:
                                     passed_counter = passed_counter + int(passed)
-                                    user.LEVEL = 'navy'
                                     cards = int(user.CARDS) + 1
+                                    user.LEVEL = 'navy'
                                     user.CARDS = cards
-                                    user.SOLVED = ''
-
+                                    # updating solved programms list
                                     user_solved = user.SOLVED.split(',')
                                     new_solved = ''
                                     for sol in user_solved:
@@ -367,13 +402,13 @@ def update_user():
                                             new_solved = new_solved + sol + ','
                                     user.SOLVED = new_solved
 
-                            elif game_uid_str is 'greenT':
-                                if user.LEVEL not in ['black', 'brown', 'navy']:
+                            elif game_uid_str == 'greenT':
+                                if user_level_str not in ['black', 'brown', 'navy']:
                                     passed_counter = passed_counter + int(passed)
-                                    user.LEVEL = 'green'
                                     cards = int(user.CARDS) + 1
+                                    user.LEVEL = 'green'
                                     user.CARDS = cards
-
+                                    # updating solved programms list
                                     user_solved = user.SOLVED.split(',')
                                     new_solved = ''
                                     for sol in user_solved:
@@ -381,13 +416,13 @@ def update_user():
                                             new_solved = new_solved + sol + ','
                                     user.SOLVED = new_solved
 
-                            elif game_uid_str is 'orangeT':
-                                if user.LEVEL not in ['black', 'brown', 'navy', 'green']:
+                            elif game_uid_str == 'orangeT':
+                                if user_level_str not in ['black', 'brown', 'navy', 'green']:
                                     passed_counter = passed_counter + int(passed)
-                                    user.LEVEL = 'orange'
                                     cards = int(user.CARDS) + 1
+                                    user.LEVEL = 'orange'
                                     user.CARDS = cards
-
+                                    # updating solved programms list
                                     user_solved = user.SOLVED.split(',')
                                     new_solved = ''
                                     for sol in user_solved:
@@ -395,13 +430,13 @@ def update_user():
                                             new_solved = new_solved + sol + ','
                                     user.SOLVED = new_solved
 
-                            elif game_uid_str is 'whiteT':
-                                if user.LEVEL not in ['black', 'brown', 'navy', 'green', 'orange']:
+                            elif game_uid_str == 'whiteT':
+                                if user_level_str not in ['black', 'brown', 'navy', 'green', 'orange']:
                                     passed_counter = passed_counter + int(passed)
-                                    user.LEVEL = 'white'
                                     cards = int(user.CARDS) + 1
+                                    user.LEVEL = 'white'
                                     user.CARDS = cards
-
+                                    # updating solved programms list
                                     user_solved = user.SOLVED.split(',')
                                     new_solved = ''
                                     for sol in user_solved:
@@ -409,11 +444,42 @@ def update_user():
                                             new_solved = new_solved + sol + ','
                                     user.SOLVED = new_solved
 
-                            elif (game_uid_str not in user.SOLVED) and ('black' not in game_uid_str):
-                                passed_counter = passed_counter + int(passed)
-                                user.SOLVED += game_uid + ','
-                                cards = int(user.CARDS) + 1
-                                user.CARDS = cards
+                            elif game_uid_str not in str(user.SOLVED):
+                                if 'white' in game_uid_str:
+                                    if user_level_str not in ['black', 'brown', 'navy', 'green', 'orange', 'white']:
+                                        passed_counter = passed_counter + int(passed)
+                                        cards = int(user.CARDS) + 1
+                                        user.SOLVED += game_uid + ','
+                                        user.CARDS = cards
+                                elif 'orange' in game_uid_str:
+                                    if user_level_str not in ['black', 'brown', 'navy', 'green', 'orange']:
+                                        passed_counter = passed_counter + int(passed)
+                                        cards = int(user.CARDS) + 1
+                                        user.SOLVED += game_uid + ','
+                                        user.CARDS = cards
+                                elif 'green' in game_uid_str:
+                                    if user_level_str not in ['black', 'brown', 'navy', 'green']:
+                                        passed_counter = passed_counter + int(passed)
+                                        cards = int(user.CARDS) + 1
+                                        user.SOLVED += game_uid + ','
+                                        user.CARDS = cards
+                                elif 'navy' in game_uid_str:
+                                    if user_level_str not in ['black', 'brown', 'navy']:
+                                        passed_counter = passed_counter + int(passed)
+                                        cards = int(user.CARDS) + 1
+                                        user.SOLVED += game_uid + ','
+                                        user.CARDS = cards
+                                elif 'brown' in game_uid_str:
+                                    if user_level_str not in ['black', 'brown']:
+                                        passed_counter = passed_counter + int(passed)
+                                        cards = int(user.CARDS) + 1
+                                        user.SOLVED += game_uid + ','
+                                        user.CARDS = cards
+                                elif 'black' in game_uid_str:
+                                    passed_counter = passed_counter + int(passed)
+                                    cards = int(user.CARDS) + 1
+                                    user.CARDS = cards
+
                         else:
                             passed_counter = passed_counter + int(passed)
                             failed_counter = failed_counter + int(failed)

@@ -59,3 +59,11 @@ curl -i -X POST -H "Content-Type: application/json" -d "{"""id""":"""1""","""ava
 
 curl -i -X POST -H "Content-Type: application/json" -d "{"""user_id""":"""1""","""operation""":"""results""","""passed""":"""2""","""failed""":"""0"""}" http://supermath.xyz:3000/api/update
 {"fail":3,"id":1,"pass":15}
+
+
+from sm_app import sm_app
+from sm_app.tasks import Tasks
+task = Tasks.query.order_by(random()).first()
+ 
+
+
