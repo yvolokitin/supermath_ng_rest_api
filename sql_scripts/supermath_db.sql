@@ -90,6 +90,6 @@ CREATE TABLE `tasks` (
     PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;
 
-INSERT INTO tasks (`LEVEL`, `LANG`, `DESCRIPTION`, `RESULT`) VALUES ('task_1', 'ru', 'Вычисли разность 52 и 19', '33');
+INSERT INTO tasks (`LEVEL`, `LANG`, `DESCRIPTION`, `RESULT`, `IMAGE`) VALUES ('task_1', 'ru', 'Вычисли разность 52 и 19', '33', '');
 
 SELECT * FROM tasks ORDER BY RAND() LIMIT 1;
