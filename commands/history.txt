@@ -1,0 +1,1000 @@
+  641  git pull origin
+  642  npm run build
+  643  cd /var/www/supermath/supermath_ng_react/
+  644  git pull origin
+  645  npm run build
+  646  git pull origin
+  647  npm run build
+  648  cd /var/www/supermath/supermath_ng_react/
+  649  git pull origin
+  650  npm run build
+  651  ~
+  652  git pull origin
+  653  npm run build
+  654  git pull origin
+  655  npm run build
+  656  git pull origin
+  657  npm run build
+  658  cd /var/www/supermath/supermath_ng_react/
+  659  git pull origin
+  660  npm run build
+  661  cd /var/www/supermath/supermath_ng_react/
+  662  git pull origin
+  663  npm run build
+  664  service supermath stop
+  665  service supermath start
+  666  service supermath status
+  667  journalctl -u supermath.service -f
+  668  cd /var/www/supermath/supermath_ng_react/
+  669  git pull origin
+  670  npm run build
+  671  journalctl -u supermath.service -f
+  672  service supermath stop
+  673  service supermath start
+  674  journalctl -u supermath.service -f
+  675  cd /var/www/supermath/supermath_ng_react/
+  676  git pull origin
+  677  npm run build
+  678  journalctl -u supermath.service -f
+  679  mysql -uroot -pasdasd12 supermath_db;
+  680  exit;
+  681  journalctl -u supermath.service -f
+  682  mysql -uroot -pasdasd12 supermath_db;
+  683  journalctl -u supermath.service -f
+  684  service supermath stop
+  685  service supermath start
+  686  journalctl -u supermath.service -f
+  687  mysql -uroot -pasdasd12 supermath_db;
+  688  cd /var/www/supermath/supermath_ng_react/
+  689  git pull origin
+  690  npm run build
+  691  cd /var/www/supermath/supermath_ng_react/
+  692  git pull origin
+  693  npm run build
+  694  cd /var/www/supermath/supermath_ng_react/
+  695  git pull origin
+  696  npm run build
+  697  cd /var/www/supermath/supermath_ng_react/
+  698  git pull origin
+  699  ping google.com
+  700  git pull origin
+  701  git 
+  702  git status
+  703  git pull origin
+  704  npm run build
+  705  cd /var/www/supermath/supermath_ng_react/
+  706  git pull origin
+  707  npm run build
+  708  cd /var/www/supermath/supermath_ng_react/
+  709  git pull origin
+  710  npm run build
+  711  git pull origin
+  712  npm run build
+  713  mysql -uroot -pasdasd12 supermath_db;
+  714  service supermath status
+  715  service supermath start
+  716  service supermath status
+  717  journalctl -u supermath.service -f
+  718  mysql -uroot -pasdasd12 supermath_db;
+  719  service supermath status
+  720  service supermath stop
+  721  service supermath start
+  722  service supermath status
+  723  journalctl -u supermath.service -f
+  724  service supermath restart
+  725  journalctl -u supermath.service -f
+  726  service supermath stop
+  727  service supermath start
+  728  journalctl -u supermath.service -f
+  729  service supermath stop
+  730  service supermath start
+  731  journalctl -u supermath.service -f
+  732  service supermath stop
+  733  service supermath start
+  734  journalctl -u supermath.service -f
+  735  service supermath stop
+  736  service supermath start
+  737  journalctl -u supermath.service -f
+  738  cd /var/www/supermath/supermath_ng_react/
+  739  git pull origin
+  740  npm run build
+  741  cd /var/www/supermath/supermath_ng_react/
+  742  git pull origin
+  743  npm run build
+  744  git pull origin
+  745  npm run build
+  746  cd /var/www/supermath/supermath_ng_react/
+  747  git pull origin
+  748  npm run build
+  749  service supermath status
+  750  journalctl -u supermath.service -f
+  751  service supermath stop
+  752  service supermath start
+  753  service supermath status
+  754  service supermath start
+  755  service supermath status
+  756  service supermath start
+  757  service supermath status
+  758  service supermath start
+  759  service supermath status
+  760  journalctl -u supermath.service -f
+  761  service supermath status
+  762  service supermath stop
+  763  service supermath start\
+  764  service supermath start
+  765  service supermath status
+  766  journalctl -u supermath.service -f
+  767  service supermath stop
+  768  service supermath start
+  769  journalctl -u supermath.service -f
+  770  service supermath stop
+  771  service supermath start
+  772  journalctl -u supermath.service -f
+  773  cd /var/www/supermath/supermath_ng_react/
+  774  git pull origin
+  775  npm run build
+  776  git pull origin
+  777  npm run build
+  778  cd /var/www/supermath/supermath_ng_react/
+  779  git pull origin
+  780  npm run build
+  781  cd /var/www/supermath_ng_rest_api
+  782  ll
+  783  pip install Flask-Mail
+  784  pip3 install Flask-Mail
+  785  service supermath stop
+  786  service supermath start
+  787  journalctl -u supermath.service -f
+  788  service supermath stop
+  789  journalctl -u supermath.service -f
+  790  service supermath stop
+  791  service supermath start
+  792  journalctl -u supermath.service -f
+  793  cd /var/www/supermath/supermath_ng_react/
+  794  git pull origin
+  795  npm run build
+  796  service supermath stop
+  797  service supermath start
+  798  journalctl -u supermath.service -f
+  799  service supermath stop
+  800  service supermath start
+  801  journalctl -u supermath.service -f
+  802  cd /var/www/supermath/supermath_ng_react/
+  803  ll
+  804  service supermath stop
+  805  service supermath start
+  806  journalctl -u supermath.service -f
+  807  ll
+  808  pwd
+  809  cd /var/www/supermath_ng_rest_api/sm_app/ 
+  810  ll
+  811  chmod +w *
+  812  ll
+  813  service supermath stop
+  814  service supermath start
+  815  journalctl -u supermath.service -f
+  816  service supermath stop
+  817  python3
+  818  ll
+  819  chmod 777 *
+  820  ll
+  821  service supermath start
+  822  service supermath status
+  823  journalctl -u supermath.service -f
+  824  service supermath stop
+  825  service supermath start
+  826  journalctl -u supermath.service -f
+  827  service supermath start
+  828  journalctl -u supermath.service -f
+  829  service supermath start
+  830  journalctl -u supermath.service -f
+  831  pip install Flask-Mail
+  832  ll
+  833  python3
+  834  service supermath stop
+  835  service supermath start
+  836  journalctl -u supermath.service -f
+  837  service supermath stop
+  838  service supermath start
+  839  journalctl -u supermath.service -f
+  840  service supermath stop
+  841  service supermath start
+  842  journalctl -u supermath.service -f
+  843  service supermath stop
+  844  service supermath start
+  845  journalctl -u supermath.service -f
+  846  service supermath stop
+  847  service supermath start
+  848  journalctl -u supermath.service -f
+  849  service supermath start
+  850  journalctl -u supermath.service -f
+  851  service supermath stop
+  852  service supermath start
+  853  journalctl -u supermath.service -f
+  854  service supermath stop
+  855  service supermath start
+  856  journalctl -u supermath.service -f
+  857  service supermath stop
+  858  service supermath start
+  859  journalctl -u supermath.service -f
+  860  mysql -uroot -pasdasd12 supermath_db;
+  861  journalctl -u supermath.service -f
+  862  cd ../../
+  863  ;;
+  864  ll
+  865  cd supermath/supermath_ng_react/
+  866  ll
+  867  git pull origin
+  868  npm run build
+  869  uname -a
+  870  service httpd
+  871  cd /etc/apache2
+  872  ll
+  873  cd /var/www/supermath/
+  874  ll
+  875  mkdir static
+  876  ll
+  877  cd static/
+  878  ll
+  879  pwd
+  880  ll
+  881  service apach
+  882  service apache2 status
+  883  service apache2 restart
+  884  service apache2 status
+  885  cd /var/www/supermath/supermath_ng_react/ 
+  886  git pull origin
+  887  npm run build
+  888  cd /var/www/
+  889  ll
+  890  llsudo systemctl status apache2
+  891  sudo systemctl status apache2
+  892  cat /etc/host
+  893  cat /etc/hosts
+  894  service supermath status
+  895  sudo apt-get install monit
+  896  service supermath status
+  897  journalctl -u supermath.service -f
+  898  service supermath stop
+  899  service supermath start
+  900  journalctl -u supermath.service -f
+  901  service supermath stop
+  902  service supermath start
+  903  journalctl -u supermath.service -f
+  904  service supermath stop
+  905  service supermath start
+  906  journalctl -u supermath.service -f
+  907  mysql -uroot -pasdasd12 supermath_db;
+  908  journalctl -u supermath.service -f
+  909  service supermath restart
+  910  journalctl -u supermath.service -f
+  911  service supermath restart
+  912  journalctl -u supermath.service -f
+  913  service supermath restart
+  914  journalctl -u supermath.service -f
+  915  service supermath restart
+  916  journalctl -u supermath.service -f
+  917  service supermath restart
+  918  journalctl -u supermath.service -f
+  919  service supermath restart
+  920  journalctl -u supermath.service -f
+  921  service supermath restart
+  922  journalctl -u supermath.service -f
+  923  service supermath restart
+  924  journalctl -u supermath.service -f
+  925  service supermath restart
+  926  journalctl -u supermath.service -f
+  927  service supermath restart
+  928  journalctl -u supermath.service -f
+  929  service supermath restart
+  930  journalctl -u supermath.service -f
+  931  service supermath status
+  932  service supermath restart
+  933  journalctl -u supermath.service -f
+  934  service supermath restart
+  935  journalctl -u supermath.service -f
+  936  service supermath restart
+  937  journalctl -u supermath.service -f
+  938  service supermath restart
+  939  journalctl -u supermath.service -f
+  940  service supermath restart
+  941  journalctl -u supermath.service -f
+  942  service supermath restart
+  943  journalctl -u supermath.service -f
+  944  service supermath restart
+  945  journalctl -u supermath.service -f
+  946  service supermath restart
+  947  journalctl -u supermath.service -f
+  948  service supermath restart
+  949  journalctl -u supermath.service -f
+  950  service supermath restart
+  951  journalctl -u supermath.service -f
+  952  service supermath restart
+  953  journalctl -u supermath.service -f
+  954  service supermath restart
+  955  journalctl -u supermath.service -f
+  956  service supermath restart
+  957  journalctl -u supermath.service -f
+  958  service supermath restart
+  959  journalctl -u supermath.service -f
+  960  service supermath restart
+  961  journalctl -u supermath.service -f
+  962  pip install pyopenssl
+  963  pip3 install pyopenssl
+  964  service supermath restart
+  965  journalctl -u supermath.service -f
+  966  service supermath restart
+  967  journalctl -u supermath.service -f
+  968  sudo apt-get install software-properties-common
+  969  sudo add-apt-repository ppa:certbot/certbot
+  970  apt-get install software-properties-common
+  971  sudo apt-get update
+  972  sudo apt-get install software-properties-common
+  973  sudo add-apt-repository universe
+  974  sudo apt-get install software-properties-common
+  975  sudo add-apt-repository universe
+  976  sudo add-apt-repository ppa:certbot/certbot
+  977  sudo apt-get install --reinstall python3-apt
+  978  sudo add-apt-repository universe
+  979  cd /usr/lib/python3/dist-packages
+  980  sudo ln -s apt_pkg.cpython-{35m,34m}-x86_64-linux-gnu.so
+  981  sudo add-apt-repository universe
+  982  sudo apt-get update
+  983  pwd
+  984  cd /var/www/
+  985  ll
+  986  journalctl -u supermath.service -f
+  987  service supermath restart
+  988  journalctl -u supermath.service -f
+  989  service supermath restart
+  990  journalctl -u supermath.service -f
+  991  service supermath restart
+  992  journalctl -u supermath.service -f
+  993  cd /var/www/supermath/supermath_ng_react/ 
+  994  git pull origin
+  995  npm run build
+  996  cd /var/www/supermath/supermath_ng_react/ 
+  997  git pull origin
+  998  rm -rf src/components/games/gameresults.js
+  999  git pull origin
+ 1000  npm run build
+ 1001  service supermath restart
+ 1002  journalctl -u supermath.service -f
+ 1003  service supermath restart
+ 1004  journalctl -u supermath.service -f
+ 1005  service supermath restart
+ 1006  journalctl -u supermath.service -f
+ 1007  service supermath restart
+ 1008  journalctl -u supermath.service -f
+ 1009  service supermath restart
+ 1010  journalctl -u supermath.service -f
+ 1011  service supermath restart
+ 1012  journalctl -u supermath.service -f
+ 1013  service supermath restart
+ 1014  journalctl -u supermath.service -f
+ 1015  service supermath restart
+ 1016  journalctl -u supermath.service -f
+ 1017  service supermath restart
+ 1018  journalctl -u supermath.service 
+ 1019  service supermath stop
+ 1020  service supermath start
+ 1021  journalctl -u supermath.service -f
+ 1022  mysql -uroot -pasdasd12 supermath_db;
+ 1023  journalctl -u supermath.service -f
+ 1024  rm -rf src/components/games/gameresults.js
+ 1025  pwd
+ 1026  cd /var/www/supermath/supermath_ng_react/ 
+ 1027  git pull origin
+ 1028  npm run build
+ 1029  git pull origin
+ 1030  npm run build
+ 1031  cd /var/www/supermath/supermath_ng_react/ 
+ 1032  git pull origin
+ 1033  npm run build
+ 1034  cd /var/www/supermath/supermath_ng_react/ 
+ 1035  git pull origin
+ 1036  npm run build
+ 1037  cd /var/www/supermath/supermath_ng_react/ 
+ 1038  git pull origin
+ 1039  npm run build
+ 1040  cd /var/www/supermath/supermath_ng_react/ 
+ 1041  git pull origin
+ 1042  npm run build
+ 1043  cd /var/www/supermath/supermath_ng_react/ 
+ 1044  git pull origin
+ 1045  npm run build
+ 1046  mysql -uroot -pasdasd12 supermath_db;
+ 1047  cd /var/www/supermath/supermath_ng_react/ 
+ 1048  git pull origin
+ 1049  npm run build
+ 1050  mysql -uroot -pasdasd12 supermath_db;
+ 1051  cd /var/www/supermath/supermath_ng_react/ 
+ 1052  git pull origin
+ 1053  npm run build
+ 1054  cd /var/www/supermath/supermath_ng_react/ 
+ 1055  git pull origin
+ 1056  npm run build
+ 1057  cd /var/www/supermath/supermath_ng_react/ 
+ 1058  git pull origin
+ 1059  npm run build
+ 1060  cd /var/www/supermath/supermath_ng_react/ 
+ 1061  git pull origin
+ 1062  npm run build
+ 1063  service supermath status
+ 1064  service supermath stop
+ 1065  service supermath start
+ 1066  journalctl -u supermath.service -f
+ 1067  service supermath status
+ 1068  service supermath start
+ 1069  journalctl -u supermath.service -f
+ 1070  service supermath stop
+ 1071  service supermath start
+ 1072  journalctl -u supermath.service -f
+ 1073  service supermath stop
+ 1074  service supermath start
+ 1075  journalctl -u supermath.service -f
+ 1076  service supermath stop
+ 1077  service supermath start
+ 1078  journalctl -u supermath.service -f
+ 1079  service supermath stop
+ 1080  service supermath start
+ 1081  journalctl -u supermath.service -f
+ 1082  cd /var/www/supermath/supermath_ng_react/ 
+ 1083  git pull origin
+ 1084  npm run build
+ 1085  \
+ 1086  journalctl -u supermath.service -f
+ 1087  cd /var/www/supermath/supermath_ng_react/ 
+ 1088  git pull origin
+ 1089  npm run build
+ 1090  cd /var/www/supermath/supermath_ng_react/ 
+ 1091  git pull origin
+ 1092  npm run build
+ 1093  cd /var/www/supermath_ng_rest_api/sm_app/ 
+ 1094  python3
+ 1095  cd ../
+ 1096  python3
+ 1097  cd /var/www/supermath_ng_rest_api/sm_app/ 
+ 1098  cd ../
+ 1099  python3
+ 1100  mysql -uroot -pasdasd12 supermath_db;
+ 1101  python3
+ 1102  service supermath status
+ 1103  service supermath stop
+ 1104  service supermath start
+ 1105  service supermath status
+ 1106  journalctl -u supermath.service -f
+ 1107  service supermath status
+ 1108  python3
+ 1109  service supermath stop
+ 1110  service supermath start
+ 1111  service supermath status
+ 1112  journalctl -u supermath.service -f
+ 1113  ll
+ 1114  python3 sm_app/userinfo.py 
+ 1115  service supermath status
+ 1116  service supermath stop
+ 1117  service supermath start
+ 1118  service supermath status
+ 1119  python3
+ 1120  service supermath stop
+ 1121  service supermath start
+ 1122  service supermath status
+ 1123  from sm_app.userinfo import extract_top_info
+ 1124  from sqlalchemy import desc
+ 1125  from sm_app.user import User
+ 1126  users = User.query.order_by(desc(User.PASS)).limit(10).all()
+ 1127  lis = extract_top_info(users)
+ 1128  from sqlalchemy import desc
+ 1129  from sm_app.user import User
+ 1130  users = User.query.order_by(desc(User.PASS)).limit(10).all()
+ 1131  python3
+ 1132  service  supermath stop
+ 1133  service  supermath start
+ 1134  service  supermath status
+ 1135  python3
+ 1136  service  supermath stop
+ 1137  service  supermath start
+ 1138  service  supermath status
+ 1139  python3
+ 1140  service  supermath stop
+ 1141  service  supermath start
+ 1142  service  supermath status
+ 1143  python3
+ 1144  service  supermath stop
+ 1145  service  supermath start
+ 1146  service  supermath status
+ 1147  journalctl -u supermath.service -f
+ 1148  cd /var/www/
+ 1149  ll
+ 1150  cd supermath/supermath_ng_react/
+ 1151  ll
+ 1152  git pull origin
+ 1153  npm run build
+ 1154  mysql -uroot -pasdasd12 supermath_db;
+ 1155  ll
+ 1156  git pull origin
+ 1157  npm run build
+ 1158  git pull origin
+ 1159  npm run build
+ 1160  mysql -uroot -pasdasd12 supermath_db;
+ 1161  service supermath stop
+ 1162  service supermath start
+ 1163  journalctl -u supermath.service -f
+ 1164  service supermath start
+ 1165  service supermath status
+ 1166  mysql -uroot -pasdasd12 supermath_db;
+ 1167  cd /var/www/supermath/supermath_ng_react/ 
+ 1168  git pull origin
+ 1169  npm run build
+ 1170  mysql -uroot -pasdasd12 supermath_db;
+ 1171  service supermath stop
+ 1172  service supermath start
+ 1173  journalctl -u supermath.service -f
+ 1174  service supermath status
+ 1175  mysql -uroot -pasdasd12 supermath_db;
+ 1176  journalctl -u supermath.service -f
+ 1177  service supermath stop
+ 1178  service supermath start
+ 1179  journalctl -u supermath.service -f
+ 1180  service supermath stop
+ 1181  service supermath start
+ 1182  journalctl -u supermath.service -f
+ 1183  service supermath stop
+ 1184  journalctl -u supermath.service -f
+ 1185  mysql -uroot -pasdasd12 supermath_db;
+ 1186  journalctl -u supermath.service -f
+ 1187  service supermath stop
+ 1188  service supermath start
+ 1189  journalctl -u supermath.service -f
+ 1190  pwd
+ 1191  cd /var/www/supermath/supermath_ng_react/ 
+ 1192  git pull origin
+ 1193  npm run build
+ 1194  journalctl -u supermath.service -f
+ 1195  service supermath stop
+ 1196  service supermath start
+ 1197  journalctl -u supermath.service -f
+ 1198  service supermath stop
+ 1199  service supermath start
+ 1200  journalctl -u supermath.service -f
+ 1201  cd /var/www/supermath/supermath_ng_react/ 
+ 1202  git pull origin
+ 1203  npm run build
+ 1204  mysql -uroot -pasdasd12 supermath_db;
+ 1205  service supermath stop
+ 1206  service supermath start
+ 1207  service supermath status
+ 1208  mysql -uroot -pasdasd12 supermath_db;
+ 1209  journalctl -u supermath.service -f
+ 1210  mysql -uroot -pasdasd12 supermath_db;
+ 1211  pwd
+ 1212  service supermath stop
+ 1213  service supermath start
+ 1214  journalctl -u supermath.service -f
+ 1215  service supermath stop
+ 1216  journalctl -u supermath.service -f
+ 1217  service supermath stop
+ 1218  journalctl -u supermath.service -f
+ 1219  service supermath stop
+ 1220  service supermath start
+ 1221  journalctl -u supermath.service -f
+ 1222  mysql -uroot -pasdasd12 supermath_db;
+ 1223  service supermath stop
+ 1224  service supermath start
+ 1225  mysql -uroot -pasdasd12 supermath_db;
+ 1226  journalctl -u supermath.service -f
+ 1227  mysql -uroot -pasdasd12 supermath_db;
+ 1228  cd /var/www/supermath/supermath_ng_react/ 
+ 1229  git pull update
+ 1230  git pull origin
+ 1231  npm run build
+ 1232  git pull origin
+ 1233  npm run build
+ 1234  git pull origin
+ 1235  npm run build
+ 1236  mysql -uroot -pasdasd12 supermath_db;
+ 1237  git pull origin
+ 1238  mysql -uroot -pasdasd12 supermath_db;
+ 1239  journalctl -u supermath.service -f
+ 1240  mysql -uroot -pasdasd12 supermath_db;
+ 1241  cd /var/www/supermath_ng_rest_api/sm_app/ 
+ 1242  python3
+ 1243  cd ../
+ 1244  python3
+ 1245  service supermath stop
+ 1246  service supermath start
+ 1247  journalctl -u supermath.service -f
+ 1248  service supermath stop
+ 1249  service supermath start
+ 1250  journalctl -u supermath.service -f
+ 1251  python3
+ 1252  service supermath stop
+ 1253  service supermath start
+ 1254  journalctl -u supermath.service -f
+ 1255  service supermath stop
+ 1256  service supermath start
+ 1257  journalctl -u supermath.service -f
+ 1258  service supermath stop
+ 1259  service supermath start
+ 1260  journalctl -u supermath.service -f
+ 1261  service supermath stop
+ 1262  service supermath start
+ 1263  journalctl -u supermath.service -f
+ 1264  service supermath stop
+ 1265  service supermath start
+ 1266  journalctl -u supermath.service -f
+ 1267  mysql -uroot -pasdasd12 supermath_db;
+ 1268  service supermath stop
+ 1269  service supermath start
+ 1270  mysql -uroot -pasdasd12 supermath_db;
+ 1271  journalctl -u supermath.service -f
+ 1272  mysql -uroot -pasdasd12 supermath_db;
+ 1273  cd /var/www/supermath/supermath_ng_react/ 
+ 1274  git pull origin
+ 1275  npm run build
+ 1276  cd /var/www/supermath/supermath_ng_react/ 
+ 1277  git pull origin
+ 1278  npm run build
+ 1279  cd /var/www/supermath/supermath_ng_react/ 
+ 1280  mysql -uroot -pasdasd12 supermath_db;
+ 1281  cd /var/www/supermath/supermath_ng_react/ 
+ 1282  git pull origin
+ 1283  npm run build
+ 1284  mysql -uroot -pasdasd12 supermath_db;
+ 1285  cd /var/www/supermath/supermath_ng_react/ 
+ 1286  git pull origin
+ 1287  npm run build
+ 1288  service supermath stop
+ 1289  service supermath start
+ 1290  journalctl -u supermath.service -f
+ 1291  service supermath stop
+ 1292  service supermath start
+ 1293  journalctl -u supermath.service -f
+ 1294  service supermath status
+ 1295  journalctl -u supermath.service -f
+ 1296  service supermath stOP
+ 1297  service supermath stop
+ 1298  service supermath start
+ 1299  journalctl -u supermath.service -f
+ 1300  git pull origin
+ 1301  npm run build
+ 1302  cd /var/www/supermath/supermath_ng_react/ 
+ 1303  git pull origin
+ 1304  npm run build
+ 1305  cd /var/www/supermath/supermath_ng_react/ 
+ 1306  git pull origin
+ 1307  npm run build
+ 1308  git pull origin
+ 1309  npm run build
+ 1310  git pull origin
+ 1311  npm run build
+ 1312  mysql -uroot -pasdasd12 supermath_db;
+ 1313  service supermath stop
+ 1314  service supermath start
+ 1315  ]
+ 1316  service supermath status
+ 1317  service supermath stop
+ 1318  service supermath status
+ 1319  service supermath start
+ 1320  service supermath status
+ 1321  journalctl -u supermath.service -f
+ 1322  mysql -uroot -pasdasd12 supermath_db;
+ 1323  service supermath stop
+ 1324  service supermath start
+ 1325  journalctl -u supermath.service -f
+ 1326  mysql -uroot -pasdasd12 supermath_db;
+ 1327  cd /var/www/supermath/supermath_ng_react/ 
+ 1328  git pull origin
+ 1329  npm run build
+ 1330  git pull origin
+ 1331  npm run build
+ 1332  git pull origin
+ 1333  npm run build
+ 1334  service supermath stop
+ 1335  service supermath start
+ 1336  journalctl -u supermath.service -f
+ 1337  git pull origin
+ 1338  npm run build
+ 1339  journalctl -u supermath.service -f
+ 1340  mysql -uroot -pasdasd12 supermath_db;
+ 1341  service supermath stop
+ 1342  service supermath start
+ 1343  journalctl -u supermath.service -f
+ 1344  service supermath stop
+ 1345  service supermath start
+ 1346  journalctl -u supermath.service -f
+ 1347  service supermath status
+ 1348  service supermath stop
+ 1349  service supermath start
+ 1350  service supermath status
+ 1351  journalctl -u supermath.service -f
+ 1352  pwd
+ 1353  cd /var/www/supermath/supermath_ng_react/ 
+ 1354  git pull origin
+ 1355  npm run build
+ 1356  cd /var/www/supermath/supermath_ng_react/ 
+ 1357  git pull origin
+ 1358  npm run build
+ 1359  cd /var/www/supermath/supermath_ng_react/ 
+ 1360  git pull origin
+ 1361  npm run build
+ 1362  cd /var/www/supermath/supermath_ng_react/ 
+ 1363  git pull origin
+ 1364  npm run build
+ 1365  mysql -uroot -pasdasd12 supermath_db;
+ 1366  git pull origin
+ 1367  npm run build
+ 1368  mysql -uroot -pasdasd12 supermath_db;
+ 1369  pwd
+ 1370  cd /var/www/supermath_ng_rest_api/ 
+ 1371  python3
+ 1372  service supermath stop
+ 1373  service supermath start\
+ 1374  service supermath start
+ 1375  service supermath status
+ 1376  journalctl -u supermath.service -f
+ 1377  service supermath stop
+ 1378  service supermath start
+ 1379  journalctl -u supermath.service -f
+ 1380  service supermath stop
+ 1381  service supermath start
+ 1382  journalctl -u supermath.service -f
+ 1383  service supermath stop
+ 1384  service supermath start
+ 1385  journalctl -u supermath.service -f
+ 1386  service supermath srop
+ 1387  service supermath stop
+ 1388  service supermath start
+ 1389  journalctl -u supermath.service -f
+ 1390  service supermath stop
+ 1391  service supermath start
+ 1392  journalctl -u supermath.service -f
+ 1393  mysql -uroot -pasdasd12 supermath_db;
+ 1394  pwd
+ 1395  cd /var/www/supermath/supermath_ng_react/ 
+ 1396  git pull origin'
+ 1397  git pull origin
+ 1398  npm run bui;d
+ 1399  npm run build
+ 1400  service supermath stop
+ 1401  service supermath start
+ 1402  mysql -uroot -pasdasd12 supermath_db;
+ 1403  journalctl -u supermath.service -f
+ 1404  mysql -uroot -pasdasd12 supermath_db;
+ 1405  journalctl -u supermath.service -f
+ 1406  mysql -uroot -pasdasd12 supermath_db;
+ 1407  journalctl -u supermath.service -f
+ 1408  mysql -uroot -pasdasd12 supermath_db;
+ 1409  journalctl -u supermath.service -f
+ 1410  mysql -uroot -pasdasd12 supermath_db;
+ 1411  cd /var/www/supermath/supermath_ng_react/ 
+ 1412  git pull origin
+ 1413  npm run build
+ 1414  mysql -uroot -pasdasd12 supermath_db;
+ 1415  pwd
+ 1416  service supermath stop
+ 1417  service supermath start
+ 1418  journalctl -u supermath.service -f
+ 1419  service supermath stop
+ 1420  service supermath start
+ 1421  journalctl -u supermath.service -f
+ 1422  service supermath stop
+ 1423  service supermath start
+ 1424  journalctl -u supermath.service -f
+ 1425  mysql -uroot -pasdasd12 supermath_db;
+ 1426  journalctl -u supermath.service -f
+ 1427  mysql -uroot -pasdasd12 supermath_db;
+ 1428  journalctl -u supermath.service -f
+ 1429  cd /var/www/supermath/supermath_ng_react/ 
+ 1430  git pull origin
+ 1431  npm run build
+ 1432  mysql -uroot -pasdasd12 supermath_db;
+ 1433  pwd
+ 1434  cd /var/www/supermath/supermath_ng_react/ 
+ 1435  git pull origin
+ 1436  npm run build
+ 1437  cd /var/www/supermath/supermath_ng_react/ 
+ 1438  git pull origin
+ 1439  npm run build
+ 1440  mysql -uroot -pasdasd12 supermath_db;
+ 1441  ifconfig
+ 1442  tcpdump 145.14.158.94
+ 1443  tcpdump 
+ 1444  ifconfig
+ 1445  tcpdump venet0
+ 1446  tcpdump --help
+ 1447  tcpdump -D
+ 1448  cd /var/www/supermath/supermath_ng_react/ 
+ 1449  git pull origin
+ 1450  npm run build
+ 1451  mysql -uroot -pasdasd12 supermath_db;
+ 1452  cd /var/www/supermath/supermath_ng_react/ 
+ 1453  git pull origin
+ 1454  npm run build
+ 1455  mysql -uroot -pasdasd12 supermath_db;
+ 1456  cd /var/www/supermath/supermath_ng_react/ 
+ 1457  git pull origin
+ 1458  npm run build
+ 1459  cd /var/www/supermath/supermath_ng_react/ 
+ 1460  git pull origin
+ 1461  npm run build
+ 1462  git pull origin
+ 1463  npm run build
+ 1464  mysql -uroot -pasdasd12 supermath_db;
+ 1465  mysqldump supermath_db;
+ 1466  pwd
+ 1467  mysqldump -uroot -pasdasd12 supermath_db;
+ 1468  mysql -uroot -pasdasd12 supermath_db;
+ 1469  service supermath srop
+ 1470  service supermath stop
+ 1471  service supermath start
+ 1472  service supermath stop
+ 1473  service supermath start
+ 1474  ournalctl -u supermath.service -f
+ 1475  journalctl -u supermath.service -f
+ 1476  CD /var/www/supermath/supermath_ng_react/ 
+ 1477  cd /var/www/supermath/supermath_ng_react/ 
+ 1478  git pull origin
+ 1479  npm run build
+ 1480  git pull origin
+ 1481  npm run build
+ 1482  git pull origin
+ 1483  npm run build
+ 1484  journalctl -u supermath.service -f
+ 1485  mysql -uroot -pasdasd12 supermath_db;
+ 1486  journalctl -u supermath.service -f
+ 1487  service supermath stop
+ 1488  service supermath start
+ 1489  journalctl -u supermath.service -f
+ 1490  service supermath status
+ 1491  journalctl -u supermath.service -f
+ 1492  yum install -y systemd-devel
+ 1493  apt-get install -y systemd-devel
+ 1494  sudo apt-get install -y libsystemd-dev
+ 1495  pip3 install systemd
+ 1496  service supermath stop
+ 1497  service supermath start
+ 1498  journalctl -u supermath.service -f
+ 1499  service supermath status
+ 1500  '
+ 1501  service supermath stop
+ 1502  service supermath start
+ 1503  service supermath status
+ 1504  journalctl -u supermath.service -f
+ 1505  cd /var/www/supermath/supermath_ng_react/ 
+ 1506  git pull origin
+ 1507  npm run build
+ 1508  git pull origin
+ 1509  npm run build
+ 1510  cd /var/www/supermath/supermath_ng_react/ 
+ 1511  git pull origin
+ 1512  npm run build
+ 1513  journalctl -u supermath.service -f
+ 1514  mysql -uroot -pasdasd12 supermath_db;
+ 1515  cd /var/www/supermath/supermath_ng_react/ 
+ 1516  git pull origin
+ 1517  npm run build
+ 1518  cd /var/www/supermath/supermath_ng_react/ 
+ 1519  git pull origin
+ 1520  npm run build
+ 1521  cd /var/www/supermath/supermath_ng_react/ 
+ 1522  git pull origin
+ 1523  npm run build
+ 1524  cd /var/www/supermath/supermath_ng_react/ 
+ 1525  git pull origin
+ 1526  npm run build
+ 1527  cd /var/www/supermath/supermath_ng_react/ 
+ 1528  git pull origin
+ 1529  npm run build
+ 1530  mysql -uroot -pasdasd12 supermath_db;
+ 1531  service mysqld
+ 1532  service mysql
+ 1533  service mysql status
+ 1534  cat /etc/mysql/mysql.cnf 
+ 1535  cat /etc/mysql/mysql.conf.d/mysqld.cnf 
+ 1536  vi /etc/mysql/mysql.conf.d/mysqld.cnf 
+ 1537  service mysql restart
+ 1538  service mysql status
+ 1539  vi /etc/mysql/mysql.conf.d/mysqld.cnf 
+ 1540  service mysql restart
+ 1541  service mysql status
+ 1542  vi /etc/mysql/mysql.conf.d/mysqld.cnf 
+ 1543  service mysql restart
+ 1544  service mysql status
+ 1545  vi /etc/mysql/mysql.conf.d/mysqld.cnf 
+ 1546  service mysql restart
+ 1547  service mysql status
+ 1548  vi /etc/mysql/mysql.conf.d/mysqld.cnf 
+ 1549  service mysql status
+ 1550  mysql -uroot -pasdasd12 supermath_db;
+ 1551  цущшцущшцщушцуйц
+ 1552  mysql -uroot -pasdasd12 supermath_db;
+ 1553  ;
+ 1554  service supermath status
+ 1555  python3
+ 1556  pwd
+ 1557  cd /var/www/supermath_ng_rest_api/sm_app/ 
+ 1558  python3
+ 1559  cd ../
+ 1560  python3
+ 1561  service supermath status
+ 1562  journalctl -u supermath.service -f
+ 1563  python3
+ 1564  journalctl -u supermath.service -f
+ 1565  mysql -uroot -pasdasd12 supermath_db;
+ 1566  ыдлваолыдвоадлыв
+ 1567  mysql -uroot -pasdasd12 supermath_db;
+ 1568  cd /var/www/supermath_ng_rest_api/sm_app/ 
+ 1569  cd /var/www/supermath/supermath_ng_react/ 
+ 1570  git pull origin
+ 1571  npm run build
+ 1572  mysql -uroot -pasdasd12 supermath_db;
+ 1573  git pull origin
+ 1574  npm run build
+ 1575  mysql -uroot -pasdasd12 supermath_db;
+ 1576  cd /var/www/supermath/supermath_ng_react/ 
+ 1577  git pull origin
+ 1578  npm run build
+ 1579  cd /var/www/supermath/supermath_ng_react/ 
+ 1580  git pull origin
+ 1581  npm run build
+ 1582  cd /var/www/supermath/supermath_ng_react/ 
+ 1583  git pull origin
+ 1584  npm run build
+ 1585  cd /var/www/supermath/supermath_ng_react/ 
+ 1586  git pull origin
+ 1587  npm run build
+ 1588  cd /var/www/supermath/supermath_ng_react/ 
+ 1589  git pull origin
+ 1590  npm run build
+ 1591  git pull origin
+ 1592  npm run build
+ 1593  git pull origin
+ 1594  npm run build
+ 1595  cd /var/www/supermath/supermath_ng_react/ 
+ 1596  git pull origin
+ 1597  npm run build
+ 1598  cd /var/www/supermath/supermath_ng_react/ 
+ 1599  git pull origin
+ 1600  npm run build
+ 1601  cd /var/www/supermath/supermath_ng_react/ 
+ 1602  git pull origin
+ 1603  npm run build
+ 1604  cd /var/www/supermath/supermath_ng_react/ 
+ 1605  git pull origin
+ 1606  npm run build
+ 1607  cd /var/www/supermath/supermath_ng_react/ 
+ 1608  git pull origin
+ 1609  npm run build
+ 1610  cd /var/www/supermath/supermath_ng_react/ 
+ 1611  git pull origin
+ 1612  npm run build
+ 1613  cd /var/www/supermath/supermath_ng_react/ 
+ 1614  git pull origin
+ 1615  npm run build
+ 1616  cd /var/www/supermath/supermath_ng_react/ 
+ 1617  git pull origin
+ 1618  npm run build
+ 1619  cd /var/www/supermath/supermath_ng_react/ 
+ 1620  service apache2 staop
+ 1621  service apache2 stop
+ 1622  git pull origin
+ 1623  npm run build
+ 1624  service apache2 start
+ 1625  journalctl -u supermath.service -f
+ 1626  service supermath status
+ 1627  service supermath start
+ 1628  service supermath status
+ 1629  service supermath stop
+ 1630  service supermath start
+ 1631  service supermath stop
+ 1632  service supermath start
+ 1633  service supermath stop
+ 1634  service supermath start
+ 1635  git pull origin
+ 1636  npm run build
+ 1637  pwd
+ 1638  cd /var/www/
+ 1639  ll
+ 1640  history > out.txt

@@ -6,6 +6,8 @@ from sqlalchemy import desc
 from sqlalchemy import func
 from sqlalchemy import extract
 
+from sqlalchemy.exc import SQLAlchemyError
+
 from flask import request, jsonify
 from flask import render_template
 
@@ -219,9 +221,14 @@ def login():
         user = None
         try:
             user = User.query.filter_by(EMAIL=email, PSWDHASH=pswdhash).first()
+
+        except SQLAlchemyError as error:
+            result = jsonify({'error': 'Login Call: sql error ' + str(error)})
+
         except Exception as e:
             print(traceback.format_exc())
-            result = jsonify({'error': 'Login Call: exception raised' + e})
+            result = jsonify({'error': 'Login Call: exception raised ' + str(e)})
+
         else:
             if user is None:
                 result = jsonify({'error': 'Login Call: no user found with \'' + str(email) + '\' email address'})
