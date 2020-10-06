@@ -6,13 +6,15 @@ def get_user_info(user, refresh=False):
                           'birthday': user.BIRTHDAY, 'surname': user.SURNAME,
                           'email': user.EMAIL, 'creation': user.CREATION_DATE,
                           'avatar': user.AVATAR, 'passed': user.PASSED,
-                          'failed': user.FAILED, 'cards': user.CARDS, 'belt': user.BELT,
+                          'failed': user.FAILED, 'cards': user.CARDS,
+                          'belt': user.BELT, 'level': user.LEVEL,
                           'solved': user.SOLVED, 'subscr': user.SUBSCR})
     else:
         result = jsonify({'id': user.ID, 'name': user.NAME, 'lang': user.LANG,
                           'birthday': user.BIRTHDAY, 'surname': user.SURNAME,
                           'email': user.EMAIL, 'creation': user.CREATION_DATE,
                           'avatar': user.AVATAR, 'passed': user.PASSED,
-                          'failed': user.FAILED, 'cards': user.CARDS, 'belt': user.BELT,
+                          'failed': user.FAILED, 'cards': user.CARDS,
+                          'belt': user.BELT, 'level': user.LEVEL,
                           'solved': user.SOLVED, 'subscr': user.SUBSCR, 'refresh': True})
     return result
