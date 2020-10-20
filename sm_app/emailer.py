@@ -49,15 +49,22 @@ def send_forget_email(name, surname, password, lang, recipient):
 
 def send_registration_email(name, surname, lang, recipient):
     if lang == 'ru':
-        subject = 'Добро пожаловавть на SuperMath.xyz'
-        title = 'Добро пожаловавть в Мир Арифметики SuperMath.xyz'
-        description = 'SuperMath - это набор бесплатных математических упражнений для практики простых и сложных арифметических действий.'
-        text = 'Дети могут сохранять результаты, обмениваться баллами, выбирать аватары и отслеживать прогресс, используя отчеты и информационные панели.'
+        subject = u'Добро пожаловавть на SuperMath.xyz'
+        title = u'Добро пожаловавть в Мир Арифметики SuperMath.xyz'
+        description = u'SuperMath - это набор бесплатных математических упражнений для практики простых и сложных арифметических действий.'
+        text = u'Дети могут сохранять результаты, обмениваться баллами, выбирать аватары и отслеживать прогресс, используя отчеты и информационные панели.'
     else:
         subject = 'Welcome to SuperMathSuperMath.xyz'
         title = 'Welcome to Arithmetical world'
         description = 'SuperMath is a collection of free math activities to practice straightforward arithmetic problems that adapt as they learn.'
         text = 'Kids can keep results, trade points, select avatars and track the progress using fluency reports and dashboards.'
+
+    '''
+    subject = 'Welcome to SuperMathSuperMath.xyz'
+    title = 'Welcome to Arithmetical world'
+    description = 'SuperMath is a collection of free math activities to practice straightforward arithmetic problems that adapt as they learn.'
+    text = 'Kids can keep results, trade points, select avatars and track the progress using fluency reports and dashboards.'
+    '''
 
     arguments = {
         'subject': subject,

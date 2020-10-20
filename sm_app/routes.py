@@ -116,10 +116,10 @@ def poopthrow():
                 if user.PSWDHASH != pswdhash:
                     result = jsonify({'error': 'PoopThrow Call: incorrect password used \'' + str(email) + '\' account'})
                 else:
-                    if int(user.PASSED) < 50:
+                    if int(user.PASSED) < 30:
                         result = jsonify({'error': 'PoopThrow Call: user does not have enough points to throw poops'})
                     else:
-                        new_passed = int(user.PASSED) - 50
+                        new_passed = int(user.PASSED) - 30
                         user.PASSED = new_passed
 
                         new_failed = int(target.FAILED) + 1
@@ -253,10 +253,10 @@ def get_task():
         task = None
         try:
             # SELECT * FROM tasks ORDER BY RAND() LIMIT 1;
-            task = Tasks.query.order_by(random()).first()
+            task = Tasks.query.order_by(func.random()).first()
         except Exception as e:
             print(traceback.format_exc())
-            result = jsonify({'error': 'Get Task: exception raised' + e})
+            result = jsonify({'error': 'Get Task: exception raised' + str(e)})
         else:
             if task is None:
                 result = jsonify({'error': 'Get Task: no task found in DB'})
@@ -264,7 +264,6 @@ def get_task():
                 result = jsonify({
                     'id': task.ID,
                     'lang': task.LANG,
-                    'name': task.NAME,
                     'level': task.LEVEL,
                     'description': task.DESCRIPTION,
                     'result': task.RESULT,
@@ -570,6 +569,16 @@ def update_user():
 
     return (result, 200)
 
+def update_refferal(user_id, bonus):
+    user = User.query.filter_by(ID=user_id).first()
+    if user is not None:
+        new_passed = int(user.PASSED) + bonus
+        user.PASSED = new_passed
+        sm_db.session.commit()
+        return user.NAME + ' ' + user.SURNAME
+
+    return ''
+
 @sm_app.route('/api/reg', methods = ['POST'])
 def registration():
     name = request.json.get('name')
@@ -581,6 +590,7 @@ def registration():
     pswdhash = request.json.get('pswdhash')
     passed = request.json.get('passed')
     failed = request.json.get('failed')
+    bonus = request.json.get('bonus')
 
     if name is None:
         result = jsonify({'error': 'Missing arguments, no user name'})
@@ -595,6 +605,13 @@ def registration():
     elif pswdhash is None:
         result = jsonify({'error': 'Missing arguments, no password hash'})
     else:
+        if bonus is None:
+            code = 100
+            refferal = ''
+        else:
+            code = 200
+            refferal = update_refferal(user_id=bonus.lstrip('0'), bonus=code)
+
         # search by email for existed user
         user = User.query.filter_by(EMAIL=email).first()
         if user is not None:
@@ -606,9 +623,9 @@ def registration():
                 result = jsonify({'error': 'User birthdate does not match expected format YYYY-MM-DD: ' + str(birthday)})
             else:
                 if passed is None:
-                    passed = 100
+                    passed = code
                 else:
-                    passed = int(passed) + 100
+                    passed = int(passed) + code
 
                 # added 100 point as signup bonus
                 user = User(NAME=name, LANG=lang, BIRTHDAY=birthday, SURNAME=last, EMAIL=email, PSWDHASH=pswdhash, CREATION_DATE=datetime.now(), PASSED=passed, SUBSCR=subcsr)
@@ -617,7 +634,7 @@ def registration():
                 # sleep 1 second for DB operation
                 time.sleep(1)
                 user = User.query.filter_by(EMAIL=email).first()
-                result = get_user_info(user)
+                result = get_user_info(user, refresh=False, user_name=refferal)
                 send_registration_email(name, last, lang, email)
 
     return (result, 200)
