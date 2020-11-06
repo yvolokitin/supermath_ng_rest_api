@@ -387,16 +387,16 @@ def update_user():
                                 user.CARDS = cards
 
                             elif game_uid_str == 'brownT':
-                                if user_level_str is not 'black':
-                                    passed_counter = passed_counter + int(passed)
+                                passed_counter = passed_counter + int(passed)
+                                if user_level_str not in ['black', 'brown']:
                                     cards = int(user.CARDS) + 1
                                     user.LEVEL = 'brown'
                                     user.SOLVED = ''
                                     user.CARDS = cards
 
                             elif game_uid_str == 'navyT':
-                                if user_level_str not in ['black', 'brown']:
-                                    passed_counter = passed_counter + int(passed)
+                                passed_counter = passed_counter + int(passed)
+                                if user_level_str not in ['black', 'brown', 'navy']:
                                     cards = int(user.CARDS) + 1
                                     user.LEVEL = 'navy'
                                     user.CARDS = cards
@@ -409,8 +409,8 @@ def update_user():
                                     user.SOLVED = new_solved
 
                             elif game_uid_str == 'greenT':
-                                if user_level_str not in ['black', 'brown', 'navy']:
-                                    passed_counter = passed_counter + int(passed)
+                                passed_counter = passed_counter + int(passed)
+                                if user_level_str not in ['black', 'brown', 'navy', 'green']:
                                     cards = int(user.CARDS) + 1
                                     user.LEVEL = 'green'
                                     user.CARDS = cards
@@ -423,8 +423,8 @@ def update_user():
                                     user.SOLVED = new_solved
 
                             elif game_uid_str == 'orangeT':
-                                if user_level_str not in ['black', 'brown', 'navy', 'green']:
-                                    passed_counter = passed_counter + int(passed)
+                                passed_counter = passed_counter + int(passed)
+                                if user_level_str not in ['black', 'brown', 'navy', 'green', 'orange']:
                                     cards = int(user.CARDS) + 1
                                     user.LEVEL = 'orange'
                                     user.CARDS = cards
@@ -432,13 +432,13 @@ def update_user():
                                     user_solved = user.SOLVED.split(',')
                                     new_solved = ''
                                     for sol in user_solved:
-                                        if (('white' not in sol) and ('orange' not in sol)):
+                                        if (('white' not in sol) and ('orange' not in sol) and (len(sol)>0)):
                                             new_solved = new_solved + sol + ','
                                     user.SOLVED = new_solved
 
                             elif game_uid_str == 'whiteT':
-                                if user_level_str not in ['black', 'brown', 'navy', 'green', 'orange']:
-                                    passed_counter = passed_counter + int(passed)
+                                passed_counter = passed_counter + int(passed)
+                                if user_level_str not in ['black', 'brown', 'navy', 'green', 'orange', 'white']:
                                     cards = int(user.CARDS) + 1
                                     user.LEVEL = 'white'
                                     user.CARDS = cards
