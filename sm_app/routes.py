@@ -244,12 +244,20 @@ def login():
 def get_task():
     lang = request.json.get('lang')
     level = request.json.get('level')
-    if level is None:
-        result = jsonify({'error': 'Get Task: missing arguments'})
+    user_id = request.json.get('user_id')
+    current = request.json.get('current')
+    fails = request.json.get('fails')
+    if lang is None:
+        result = jsonify({'error': 'Get Task: missing arguments, no language'})
+    elif level is None:
+        result = jsonify({'error': 'Get Task: missing arguments, no level'})
+    elif user_id is None:
+        result = jsonify({'error': 'Get Task: missing arguments, no user'})
+    elif current is None:
+        result = jsonify({'error': 'Get Task: missing arguments, no current task count'})
+    elif fails is None:
+        result = jsonify({'error': 'Get Task: missing arguments, no fails list'})
     else:
-        if lang is None:
-            lang='en'
-
         task = None
         try:
             # SELECT * FROM tasks ORDER BY RAND() LIMIT 1;
