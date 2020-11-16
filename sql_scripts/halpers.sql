@@ -7,8 +7,26 @@ select ID, NAME, SURNAME, AVATAR, PASS from users ORDER BY PASS DESC LIMIT 10;
 select * from results where USERID=1 AND monthname(EXECUTION_DATE)='June';
 
 
-INSERT INTO tasks (`LEVEL`, `LANG`, `DESCRIPTION`, `RESULT`, `UNITS`, `IMAGE`) VALUES ('task_1', 'ru', 'Периметр квадрата равен 24 см. Чему равна сторона квадрата?', '6', 'см', 'perimeter.jpg');
-INSERT INTO tasks (`LEVEL`, `LANG`, `DESCRIPTION`, `RESULT`, `UNITS`, `IMAGE`) VALUES ('task_1', 'ru', 'Чему равен периметр квадрата, если длина одной его стороны 7см?', '28', 'см', 'perimeter.jpg');
+DROP TABLE IF EXISTS `tasks`;
+CREATE TABLE `tasks` (
+    `ID` bigint(20) NOT NULL auto_increment,
+    `LEVEL` varchar(8) DEFAULT 'task_1',
+    `RU` varchar(512) DEFAULT '',
+    `EN` varchar(512) DEFAULT '',
+    `NL` varchar(512) DEFAULT '',
+    `DE` varchar(512) DEFAULT '',
+    `FR` varchar(512) DEFAULT '',
+    `ES` varchar(512) DEFAULT '',
+    `IT` varchar(512) DEFAULT '',
+    `RESULT` varchar(32) NOT NULL,
+    `IMAGE` varchar(64) DEFAULT '',
+    PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;
+
+INSERT INTO tasks (`LEVEL`, `RU`, `EN`, `NL`, `RESULT`, `IMAGE`) VALUES ('task_1', 'Периметр квадрата равен 24 см. Чему равна сторона квадрата?', 'The perimeter of the square is 24 cm. What is the side of the square?', 'De omtrek van het vierkant is 24 cm Wat is de zijde van het vierkant?', '6', '');
+INSERT INTO tasks (`LEVEL`, `RU`, `EN`, `NL`, `RESULT`, `IMAGE`) VALUES ('task_1', 'Чему равен периметр квадрата, если длина одной его стороны 7см?', '','', '28', '');
+
+INSERT INTO tasks (`LEVEL`, `RU`, `EN`, `NL`, `RESULT`, `IMAGE`) VALUES ('task_1', '', '','', '28', '');
 
 INSERT INTO tasks (`LEVEL`, `LANG`, `DESCRIPTION`, `RESULT`, `IMAGE`) VALUES ('task_1', 'ru', 'Вычисли разность 52 и 19', '33', 'difference.png');
 INSERT INTO tasks (`LEVEL`, `LANG`, `DESCRIPTION`, `RESULT`, `IMAGE`) VALUES ('task_1', 'ru', 'Чему равно уменьшаемое если разность 13 и вычитаемое 7', '20', 'difference.png');
