@@ -247,6 +247,7 @@ def get_task():
     user_id = request.json.get('user_id')
     current = request.json.get('current')
     fails = request.json.get('fails')
+
     if lang is None:
         result = jsonify({'error': 'Get Task: missing arguments, no language'})
     elif level is None:
@@ -262,6 +263,7 @@ def get_task():
         try:
             # SELECT * FROM tasks ORDER BY RAND() LIMIT 1;
             task = Tasks.query.order_by(func.random()).first()
+
         except Exception as e:
             print(traceback.format_exc())
             result = jsonify({'error': 'Get Task: exception raised' + str(e)})
@@ -269,13 +271,33 @@ def get_task():
             if task is None:
                 result = jsonify({'error': 'Get Task: no task found in DB'})
             else:
+                if lang == 'ru' and len(task.RU)>0:
+                    language = lang
+                    description = task.RU
+                elif lang == 'nl' and len(task.NL)>0:
+                    language = lang
+                    description = task.NL
+                elif lang == 'de' and len(task.DE)>0:
+                    language = lang
+                    description = task.DE
+                elif lang == 'fr' and len(task.FR)>0:
+                    language = lang
+                    description = task.FR
+                elif lang == 'ES' and len(task.ES)>0:
+                    language = lang
+                    description = task.ES
+                elif lang == 'it' and len(task.IT)>0:
+                    language = lang
+                    description = task.IT
+                else:
+                    language = 'en'
+                    description = task.EN
+
                 result = jsonify({
                     'id': task.ID,
-                    'lang': task.LANG,
-                    'level': task.LEVEL,
-                    'description': task.DESCRIPTION,
+                    'lang': language,
+                    'description': description,
                     'result': task.RESULT,
-                    'units': task.UNITS,
                     'image': task.IMAGE,})
 
     return (result, 200)

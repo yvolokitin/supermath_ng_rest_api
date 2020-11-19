@@ -1,4 +1,7 @@
-﻿select ID, NAME, FAIL from users;
+﻿mysql -h localhost -u root -pasdas12 supermath_db;
+mysql -u root -pasdas12 supermath_db;
+
+select ID, NAME, FAIL from users;
 
 select ID, NAME, SURNAME, AVATAR, FAIL from users ORDER BY FAIL DESC LIMIT 10;
 
