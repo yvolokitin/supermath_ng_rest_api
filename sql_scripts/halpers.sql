@@ -6,6 +6,11 @@ select ID, NAME, SURNAME, AVATAR, PASS from users ORDER BY PASS DESC LIMIT 10;
 
 select * from results where USERID=1 AND monthname(EXECUTION_DATE)='June';
 
+UPDATE users SET LEVEL='NONE' WHERE ID=9;
+UPDATE users SET SOLVED='white1,white2,white3,white4,white5,white6,orange1,green1,' WHERE ID=9;
+select ID, NAME, LANG, SOLVED, LEVEL from users where ID=9;
+
+select ID, NAME, LANG, SOLVED, LEVEL from users;
 
 DROP TABLE IF EXISTS `tasks`;
 CREATE TABLE `tasks` (
@@ -24,6 +29,8 @@ CREATE TABLE `tasks` (
 ) ENGINE=MyISAM DEFAULT CHARACTER SET utf8 COLLATE=utf8_general_ci AUTO_INCREMENT=1;
 
 INSERT INTO tasks (`LEVEL`, `RU`, `EN`, `NL`, `RESULT`, `IMAGE`) VALUES ('task_1', 'Периметр квадрата равен 24 см. Чему равна сторона квадрата?', 'The perimeter of the square is 24 cm. What is the side of the square?', 'De omtrek van het vierkant is 24 cm Wat is de zijde van het vierkant?', '6', '');
+INSERT INTO tasks (`LEVEL`, `RU`, `EN`, `NL`, `RESULT`, `IMAGE`) VALUES ('task_1', 'Миша купил в магазине яблоки и груши. Яблоки стоили 50 рублей, а груши в 2 раза дороже. Сколько рублей потратил Миша?', 'Mike bought apples and pears in the store. Apples cost 50 euro, and pears cost in two time expensive. How much money Mike spent?', 'Mike kocht appels en peren in de winkel. Appels kosten 50 euro en peren kosten in twee keer duur. Hoeveel geld heeft Mike uitgegeven?', '150', 'apples_pears.jpg');
+
 INSERT INTO tasks (`LEVEL`, `RU`, `EN`, `NL`, `RESULT`, `IMAGE`) VALUES ('task_1', 'Чему равен периметр квадрата, если длина одной его стороны 7см?', '','', '28', '');
 
 INSERT INTO tasks (`LEVEL`, `RU`, `EN`, `NL`, `RESULT`, `IMAGE`) VALUES ('task_1', '', '','', '28', '');
