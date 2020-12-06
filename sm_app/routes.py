@@ -116,10 +116,10 @@ def poopthrow():
                 if user.PSWDHASH != pswdhash:
                     result = jsonify({'error': 'PoopThrow Call: incorrect password used \'' + str(email) + '\' account'})
                 else:
-                    if int(user.PASSED) < 30:
+                    if int(user.PASSED) < 20:
                         result = jsonify({'error': 'PoopThrow Call: user does not have enough points to throw poops'})
                     else:
-                        new_passed = int(user.PASSED) - 30
+                        new_passed = int(user.PASSED) - 20
                         user.PASSED = new_passed
 
                         new_failed = int(target.FAILED) + 1
@@ -240,36 +240,32 @@ def login():
 
     return (result, 200)
 
-@sm_app.route('/api/gettask', methods = ['POST'])
-def get_task():
+@sm_app.route('/api/getfailtask', methods = ['POST'])
+def get_fail_task():
     lang = request.json.get('lang')
     level = request.json.get('level')
     user_id = request.json.get('user_id')
-    current = request.json.get('current')
-    fails = request.json.get('fails')
-
+    task_id = request.json.get('task_id')
     if lang is None:
         result = jsonify({'error': 'Get Task: missing arguments, no language'})
     elif level is None:
         result = jsonify({'error': 'Get Task: missing arguments, no level'})
     elif user_id is None:
         result = jsonify({'error': 'Get Task: missing arguments, no user'})
-    elif current is None:
-        result = jsonify({'error': 'Get Task: missing arguments, no current task count'})
-    elif fails is None:
-        result = jsonify({'error': 'Get Task: missing arguments, no fails list'})
+    elif task_id is None:
+        result = jsonify({'error': 'Get Task: missing arguments, no fail task id'})
     else:
-        task = None
         try:
             # SELECT * FROM tasks ORDER BY RAND() LIMIT 1;
-            task = Tasks.query.order_by(func.random()).first()
+            # task = Tasks.query.order_by(func.random()).first()
+            task = Tasks.query.filter_by(ID=task_id, LEVEL=level).first()
 
         except Exception as e:
             print(traceback.format_exc())
             result = jsonify({'error': 'Get Task: exception raised' + str(e)})
         else:
             if task is None:
-                result = jsonify({'error': 'Get Task: no task found in DB'})
+                result = jsonify({'error': 'Get Task: no more tasks found in database per ' + level})
             else:
                 if lang == 'ru' and len(task.RU)>0:
                     language = lang
@@ -294,7 +290,74 @@ def get_task():
                     description = task.EN
 
                 result = jsonify({
-                    'id': task.ID,
+                    'task_id': task_id,
+                    'lang': language,
+                    'description': description,
+                    'result': task.RESULT,
+                    'image': task.IMAGE,})
+
+    return (result, 200)
+
+@sm_app.route('/api/getnexttask', methods = ['POST'])
+def get_next_task():
+    lang = request.json.get('lang')
+    level = request.json.get('level')
+    user_id = request.json.get('user_id')
+    current = request.json.get('task_id')
+
+    if lang is None:
+        result = jsonify({'error': 'Get Task: missing arguments, no language'})
+    elif level is None:
+        result = jsonify({'error': 'Get Task: missing arguments, no level'})
+    elif user_id is None:
+        result = jsonify({'error': 'Get Task: missing arguments, no user'})
+    elif current is None:
+        result = jsonify({'error': 'Get Task: missing arguments, no current task count'})
+    else:
+        task_id = int(current) + 1;
+        task = None
+        try:
+            # SELECT * FROM tasks ORDER BY RAND() LIMIT 1;
+            # task = Tasks.query.order_by(func.random()).first()
+            task = Tasks.query.filter_by(ID=task_id, LEVEL=level).first()
+
+            if task is None:
+                task_id = 1
+                task = Tasks.query.filter_by(ID=task_id, LEVEL=level).first()
+
+        except Exception as e:
+            print(traceback.format_exc())
+            result = jsonify({'error': 'Get Task: exception raised' + str(e)})
+
+        else:
+            if task is None:
+                result = jsonify({'error': 'Get Task: no more tasks found in database per ' + level})
+
+            else:
+                if lang == 'ru' and len(task.RU)>0:
+                    language = lang
+                    description = task.RU
+                elif lang == 'nl' and len(task.NL)>0:
+                    language = lang
+                    description = task.NL
+                elif lang == 'de' and len(task.DE)>0:
+                    language = lang
+                    description = task.DE
+                elif lang == 'fr' and len(task.FR)>0:
+                    language = lang
+                    description = task.FR
+                elif lang == 'ES' and len(task.ES)>0:
+                    language = lang
+                    description = task.ES
+                elif lang == 'it' and len(task.IT)>0:
+                    language = lang
+                    description = task.IT
+                else:
+                    language = 'en'
+                    description = task.EN
+
+                result = jsonify({
+                    'task_id': task_id,
                     'lang': language,
                     'description': description,
                     'result': task.RESULT,
