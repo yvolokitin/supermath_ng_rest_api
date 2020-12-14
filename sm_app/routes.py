@@ -472,7 +472,10 @@ def update_user():
                         game_uid_str = str(game_uid)
 
                         if (int(failed) == 0) and (int(passed) > 0):
-                            if game_uid_str == 'blackT':
+                            if 'task_' in game_uid_str:
+                                passed_counter = passed_counter + int(passed)
+
+                            elif game_uid_str == 'blackT':
                                 passed_counter = passed_counter + int(passed)
                                 cards = int(user.CARDS) + 1
                                 user.LEVEL = 'black'
